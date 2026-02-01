@@ -23,31 +23,32 @@ function Navigation() {
 
     return (
         <div id="navigation">
-            <p>
-                <strong>메뉴</strong>
-            </p>
             <ul>
                 {!loginStatus.isLogin ? (
                     <>
                         {/* 로그인전 start*/}
                         <li>
 
-                            <Link to={"/user_login_form"}>로그인</Link>
+                            <Link to={"/user_login"}>로그인</Link>
                         </li>
                         <li>
-                            <Link to="/user_write_form">회원가입</Link>
+                            <Link to="/user_regist">회원가입</Link>
                         </li>
                         {/* 로그인전 end */}
                     </>
                 ) : (
                     <>
                         {/*로그인후 start */}
-                        < li >
-                            <Link to={""}>{loginStatus.loginUser.userId} 님</Link>
+                        <li className="nav-user">
+                        {loginStatus.loginUser.name} 님 환영합니다.
                         </li>
-                        <li>
-                            <Link to={`/user_view/${loginStatus.loginUser.userId}`}>내정보</Link>
-                        </li>
+
+                        <li>대시보드</li>
+                        <li>강의 목록</li>
+                        <li>과제</li>
+                        <li>시험</li>
+                        <li>공지사항</li>
+                        <li><Link to={`/user_view/${loginStatus.loginUser.userId}`}>마이페이지</Link></li>
                         <li>
                             <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
                         </li>

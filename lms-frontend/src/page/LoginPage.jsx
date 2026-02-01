@@ -11,8 +11,8 @@ import useLoginForm from "../hook/useLoginForm";
 export const LoginPage = () => {
   const { loginFormRef, user, handleChangeLoginForm, message, userLoginAction } = useLoginForm();
   return (
-    <div className="login-container">
-      <div className="login-card">
+<div className="login-page">
+  <div className="login-box">
         <h2 className="login-title">LMS 로그인</h2>
 
         <form ref={loginFormRef} name="f" method="post" >
@@ -41,7 +41,7 @@ export const LoginPage = () => {
         </form>
 
         <div className="login-footer">
-          <Link to={"/user_signup"}>회원가입 </Link>
+          <Link to={"/user_regist"}>회원가입 </Link>
           <span>|</span>
           <a href="#">비밀번호 찾기</a>
         </div>

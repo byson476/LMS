@@ -29,7 +29,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
 		Map<String, Object> claims = securityUser.getClaims();
-		String accessToken = JWTUtil.generateToken(claims, 1);
+		String accessToken = JWTUtil.generateToken(claims, 30);
 		String refreshToken = JWTUtil.generateToken(claims, 60 * 24);
 		claims.put("accessToken", accessToken);
 		claims.put("refreshToken", refreshToken);

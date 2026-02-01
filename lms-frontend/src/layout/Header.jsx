@@ -4,7 +4,7 @@ function Header() {
     return (
         <div id="header">
             <h1>
-                <a href="/user_main">회원관리 REACT FRONTEND SECURITY</a>
+                <a href="/user_main">Learning Management System</a>
             </h1>
         </div>
     )

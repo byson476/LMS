@@ -4,7 +4,7 @@ function Footer() {
     return (
         <div id="footer">
             <p align="center">
-                Copyright (©) By Kimkyoungho.[김경호] All rights reserved.
+                Copyright (©) By BySon.[손보연] All rights reserved.
             </p>
         </div>
     )
