@@ -28,10 +28,6 @@
 Learning Management System (개인 프로젝트)
 1. 요구사항 명세서 
 
-<img width="500"  alt="요구사항" src="https://github.com/user-attachments/assets/1bcbe91b-4f7c-4289-a2d5-1cafbd993c6b" />
-
-
-
 | 학생 (Student) | 강사 (Tutor) | 관리자 (Admin) |
 |----------------|--------------|----------------|
 | ✓ 회원가입 / 로그인 | ✓ 강사 회원 등록 | ✓ 회원 관리 (학생/강사/관리자) |
