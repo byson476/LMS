@@ -44,7 +44,7 @@ function Navigation() {
                         </li>
 
                         <li>대시보드</li>
-                        <li>강의 목록</li>
+                        <li><Link to={`/course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
                         <li>과제</li>
                         <li>시험</li>
                         <li>공지사항</li>

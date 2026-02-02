@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
+import "./assets/css/layout.css";
 import "./assets/css/styles.css";
 import "./assets/css/login.css";
 import "./assets/css/signup.css";
+import "./assets/css/course.css";
 
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
@@ -16,6 +18,7 @@ import { UserViewPage } from "./page/UserViewPage";
 import { UserEditPage } from "./page/UserEditPage";
 import { UserNonPage } from "./page/UserNonePage";
 import KakaoRedirectPage from "./page/KakaoRedirectPage";
+import { CourseList } from "./page/course/CourseList";
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -41,75 +44,70 @@ function App() {
     });
   }, []);
 
-  /* 🔥 로그인 / 회원가입 페이지 여부 */
+  /* 로그인 / 회원가입 페이지 */
   const isAuthPage =
     location.pathname === "/user_login" ||
     location.pathname === "/user_regist";
 
   return (
     <UserContext.Provider value={{ loginStatus, setLoginStatus }}>
-
-      {/* =====================
-         로그인 / 회원가입 전용 레이아웃
-      ===================== */}
-      {isAuthPage ? (
-        <div className="auth-layout">
+      {/* ⭐ 전체 화면 기준 */}
+      <div className="app-layout">
+        {isAuthPage ? (
+          /* =====================
+             로그인 / 회원가입 전용
+          ===================== */
           <Routes>
             <Route
               path="/user_login"
-              element={
-                !loginStatus.isLogin ? <LoginPage /> : <UserMainPage />
-              }
+              element={!loginStatus.isLogin ? <LoginPage /> : <UserMainPage />}
             />
             <Route
               path="/user_regist"
-              element={
-                !loginStatus.isLogin ? <UserRegistPage /> : <UserMainPage />
-              }
+              element={!loginStatus.isLogin ? <UserRegistPage /> : <UserMainPage />}
             />
           </Routes>
-        </div>
-      ) : (
-        /* =====================
-           일반 페이지 레이아웃
-        ===================== */
-        <>
-          <Header />
-          <Navigation />
+        ) : (
+          /* =====================
+             일반 페이지 레이아웃
+          ===================== */
+          <>
+            <Header />
 
-          <div id="wrapper">
-            <div id="content">
-              <Routes>
-                <Route path="/" element={<UserMainPage />} />
-                <Route path="/user_main" element={<UserMainPage />} />
+            <div className="body-layout">
+              <Navigation />
 
-                <Route
-                  path="/user_view/:userId"
-                  element={
-                    loginStatus.isLogin
-                      ? <UserViewPage />
-                      : <UserMainPage />
-                  }
-                />
+              {/* ⭐ 여기만 스크롤 */}
+              <main className="main-content">
+                <Routes>
+                  <Route path="/" element={<UserMainPage />} />
+                  <Route path="/user_main" element={<UserMainPage />} />
 
-                <Route
-                  path="/user_edit/:userId"
-                  element={
-                    loginStatus.isLogin
-                      ? <UserEditPage />
-                      : <UserMainPage />
-                  }
-                />
+                  <Route
+                    path="/user_view/:userId"
+                    element={loginStatus.isLogin ? <UserViewPage /> : <UserMainPage />}
+                  />
 
-                <Route path="/member/kakao" element={<KakaoRedirectPage />} />
-                <Route path="*" element={<UserNonPage />} />
-              </Routes>
+                  <Route
+                    path="/user_edit/:userId"
+                    element={loginStatus.isLogin ? <UserEditPage /> : <UserMainPage />}
+                  />
+
+                  <Route
+                    path="/course_list/:userId"
+                    element={loginStatus.isLogin ? <CourseList /> : <UserMainPage />}
+                  />
+
+                  <Route path="/member/kakao" element={<KakaoRedirectPage />} />
+                  <Route path="*" element={<UserNonPage />} />
+                </Routes>
+              </main>
             </div>
-          </div>
 
-          <Footer />
-        </>
-      )}
+            <Footer />
+          </>
+        )}
+      </div>
     </UserContext.Provider>
   );
 }

@@ -1,0 +1,180 @@
+/* =====================
+   강의 목록 페이지
+===================== */
+.course-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 상단 타이틀 */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  color: #1f3c88;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: #666;
+}
+
+/* 필터 버튼 */
+.course-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.course-filter button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #e0e3ff;
+  cursor: pointer;
+}
+
+.course-filter button.active {
+  background: #5f63e6;
+  color: #fff;
+}
+
+/* =====================
+   🔥 카드 그리드 (3 x 2)
+===================== */
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개씩 */
+  gap: 24px;
+}
+
+/* 카드 */
+.course-card {
+  display: flex;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 썸네일 */
+.course-thumbnail {
+  width: 120px;
+  background: linear-gradient(135deg, #6b6be3, #7b6fd6);
+}
+
+/* 카드 정보 */
+.course-info {
+  flex: 1;
+  padding: 20px;
+}
+
+.course-info h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.instructor {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+/* 진행률 */
+.progress-bar {
+  height: 6px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background: #5f63e6;
+}
+
+.progress-text {
+  font-size: 12px;
+  margin-top: 6px;
+  display: block;
+}
+
+/* 메타 */
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 10px;
+  color: #555;
+}
+
+/* 버튼 */
+.continue-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #5f63e6;
+  color: #fff;
+  cursor: pointer;
+}
+
+.continue-btn.done {
+  background: #2ecc71;
+}
+/* =====================
+   pagination
+===================== */
+.pagination {
+  display: flex;
+  justify-content: center;   /* 🔥 중앙 정렬 */
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 40px;
+}
+
+/* 버튼 공통 */
+.pagination button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+/* hover */
+.pagination button:hover {
+  background: #6b6be3;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* 활성 페이지 */
+.pagination button.active {
+  background: #6b6be3;
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(107, 107, 227, 0.35);
+  cursor: default;
+}
+
+/* 이전/다음 버튼 */
+.pagination button:first-child,
+.pagination button:last-child {
+  font-weight: bold;
+}
+

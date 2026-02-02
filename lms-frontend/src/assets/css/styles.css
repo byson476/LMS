@@ -1,34 +1,34 @@
 /* =====================
-   reset
+   RESET
 ===================== */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
+  width: 100%;
   height: 100%;
 }
 
 body {
-  min-height: 100vh;
   font-family: Arial, sans-serif;
   background: #eef1f7;
+  overflow: hidden; /* 🔥 브라우저 스크롤 차단 */
 }
 
 /* =====================
-   layout
+   ROOT LAYOUT (🔥 핵심)
 ===================== */
 #container {
-  min-height: 100vh;
+  height: 100vh;                 /* ❗ min-height ❌ */
   display: flex;
   flex-direction: column;
-  background: #eef1f7;
 }
 
 /* =====================
-   header
+   HEADER
 ===================== */
 #header {
   height: 80px;
@@ -45,41 +45,32 @@ body {
   color: rgba(255, 255, 255, 0.95);
 }
 
-#header a,
-#header a:visited,
-#header a:hover,
-#header a:active {
+#header a {
   color: rgba(255, 255, 255, 0.95);
   text-decoration: none;
 }
 
 /* =====================
-   main wrapper
+   WRAPPER (NAV + CONTENT)
 ===================== */
 #wrapper {
   flex: 1;
   display: flex;
-  background: #eef1f7;
+  overflow: hidden;   /* 🔥 화면 밀림 차단 */
 }
 
 /* =====================
-   navigation
+   NAVIGATION
 ===================== */
 #navigation {
   width: 180px;
+  flex-shrink: 0;
   padding: 20px 14px;
   background: #eef1f7;
 }
 
-#navigation p {
-  font-weight: bold;
-  margin-bottom: 14px;
-}
-
 #navigation ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 #navigation li {
@@ -102,7 +93,7 @@ body {
 }
 
 /* 로그인 사용자 영역 */
-.nav-user {
+#navigation li.nav-user {
   margin-bottom: 18px;
   padding: 12px 10px;
 
@@ -118,34 +109,29 @@ body {
 }
 
 /* =====================
-   content (🔥 중앙정렬 핵심)
+   CONTENT (🔥 진짜 핵심)
 ===================== */
 #content {
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
+  overflow-y: auto;   /* ✅ 내부 스크롤만 */
+  background: #eef1f7;
+}
+
+/* 실제 페이지 여백은 여기서 */
+.page-inner {
+  padding: 32px 40px;
 }
 
 /* =====================
-   footer
+   FOOTER
 ===================== */
 #footer {
+  height: 48px;
   flex-shrink: 0;
-  background: #eef1f7;
-  padding: 16px 0;
   text-align: center;
-}
-/* =====================
-   로그인 / 회원가입 전용
-===================== */
-.auth-layout {
-  width: 100%;
-  height: 100vh;           /* 🔥 브라우저 기준 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #eef1f7;
-}
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
