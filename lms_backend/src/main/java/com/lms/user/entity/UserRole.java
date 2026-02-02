@@ -43,7 +43,7 @@ package com.lms.user.entity;
 
 public enum UserRole {
 
-  USER, MANAGER, ADMIN
+  STUDENT, TUTOR, ADMIN
 
 }
 

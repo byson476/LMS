@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 				.social(userDto.isSocial())
 				.build();
 
-		saveUser.addRole(UserRole.USER);
+		saveUser.addRole(UserRole.STUDENT);
 		if (userDto.getUserId().startsWith("admin")) {
 			saveUser.addRole(UserRole.ADMIN);
 		}
@@ -230,7 +230,7 @@ public class UserServiceImpl implements UserService {
 				.password(passwordEncoder.encode(tempPassword))
 				.social(true)
 				.build();
-		userEntity.addRole(UserRole.USER);
+		userEntity.addRole(UserRole.STUDENT);
 		return userEntity;
 	}
 
