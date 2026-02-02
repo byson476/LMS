@@ -1,7 +1,7 @@
-﻿# <img width="123" height="38" alt="logo" src="https://github.com/user-attachments/assets/af863b77-e603-4838-a6b2-cb76f028a03d" />  
 
-## 팀원 소개
-#### 팀명: LIMITREE
+
+
+
 #### 프로젝트명: 온라인 가구 쇼핑 플랫폼
 #### 팀원 소개: 손보연(팀장) 김선혁(부팀장) 장재혁(헬스남) 박성섭(섭섭이) 정유한(무한) 김연준(묵묵이) 박현우(따돌림)  
 
