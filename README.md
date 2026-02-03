@@ -46,9 +46,11 @@ Learning Management System (개인 프로젝트)
 
 3. (UML) 유스케이스 다이어그램 - Usecase Diagram 
 
-<img width="200" height="1024" alt="ChatGPT Image 2026년 2월 3일 오전 09_08_03" src="https://github.com/user-attachments/assets/94ae3908-b891-4cf5-acc1-3aa13671ea01" />
+<img width="200" alt="유스케이스다이어그램" src="https://github.com/user-attachments/assets/94ae3908-b891-4cf5-acc1-3aa13671ea01" />
 
 4. (UML) 시퀀스 다이어그램 - Sequence Diagram 
+
+<img width="200" alt="씨퀀스 다이어그램" src="https://github.com/user-attachments/assets/5303e08a-f074-48f5-bf02-affc26237eeb" />
 
   <img width="200" alt="1번" src="https://github.com/user-attachments/assets/b63210a6-daab-4688-b32f-c34f5f210cf3" /><img width="200"  alt="2번" src="https://github.com/user-attachments/assets/51c5a9df-0ae7-4a69-99a1-cf66d1ec2cad" /><img width="200"  alt="3번" src="https://github.com/user-attachments/assets/dddd6110-9d96-4dec-9c1e-842a6a7b33ca" />
 
