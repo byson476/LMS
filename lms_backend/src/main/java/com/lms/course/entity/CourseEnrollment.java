@@ -36,6 +36,7 @@ public class CourseEnrollment {
 	@SequenceGenerator(name = "ENROLLMENT_ID_SEQ", sequenceName = "ENROLLMENT_ID_SEQ", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENROLLMENT_ID_SEQ")
 	private Long enrollmentId;
+    private Long status;
     private Date enrolledDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,6 +51,7 @@ public class CourseEnrollment {
         return CourseEnrollment.builder()
                 .enrollmentId(courseEnrollmentDto.getEnrollmentId())
                 .enrolledDate(courseEnrollmentDto.getEnrolledDate())
+                .status(courseEnrollmentDto.getStatus())
                 .student(courseEnrollmentDto.getStudent())
                 .course(courseEnrollmentDto.getEnrollments().get(0).getCourse())
                 .build();

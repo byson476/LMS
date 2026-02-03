@@ -6,6 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.lms.course.entity.Course;
+import com.lms.course.entity.CourseEnrollment;
+import com.lms.course.repository.CourseEnrollmentRepository;
+import com.lms.course.repository.CourseRepository;
 import com.lms.user.entity.Admin;
 import com.lms.user.entity.Student;
 import com.lms.user.entity.Tutor;
@@ -26,6 +30,10 @@ public class LmsBackendApplication  implements CommandLineRunner {
 	TutorRepository tutorRepository;
 	@Autowired
 	AdminRepository adminRepository;
+	@Autowired
+	CourseRepository courseRepository;
+	@Autowired
+	CourseEnrollmentRepository courseEnrollmentRepository;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -75,7 +83,7 @@ public class LmsBackendApplication  implements CommandLineRunner {
 		userRepository.save(user4);
 
 		Student student1 = Student.builder()
-				.sutdentId(user1.getUserId())
+				.studentId(user1.getUserId())
 				.grade(1)
 				.creatDate(java.sql.Date.valueOf("2023-03-01"))
 				.user(user1)
@@ -96,5 +104,57 @@ public class LmsBackendApplication  implements CommandLineRunner {
 				.user(user4)
 				.build();
 		adminRepository.save(admin1);
+
+		Course course1 = Course.builder()
+				.title("Java Basics")
+				.description("Introduction to Java programming")
+				.tutor(tutor1)
+				.build();
+		Course course2 = Course.builder()
+				.title("Advanced Java")
+				.description("Deep dive into Java programming")
+				.tutor(tutor1)
+				.build();
+		Course course3 = Course.builder()
+				.title("Spring Framework")
+				.description("Comprehensive guide to Spring Framework")
+				.tutor(tutor1)
+				.build();
+		Course course4 = Course.builder()
+				.title("Hibernate ORM")
+				.description("Learn Hibernate for database management")
+				.tutor(tutor1)
+				.build();
+		Course course5 = Course.builder()
+				.title("Microservices with Spring Boot")
+				.description("Building microservices using Spring Boot")
+				.tutor(tutor1)
+				.build();
+		Course course6 = Course.builder()
+				.title("RESTful APIs")
+				.description("Designing and building RESTful APIs")
+				.tutor(tutor1)
+				.build();
+		courseRepository.save(course1);
+		courseRepository.save(course2);
+		courseRepository.save(course3);
+		courseRepository.save(course4);
+		courseRepository.save(course5);
+		courseRepository.save(course6);
+
+		CourseEnrollment courseEnrollment1 = CourseEnrollment.builder()
+				.enrolledDate(java.sql.Date.valueOf("2023-09-01"))
+				.status(1L)
+				.student(student1)
+				.course(course1)
+				.build();
+		CourseEnrollment courseEnrollment2 = CourseEnrollment.builder()
+				.enrolledDate(java.sql.Date.valueOf("2023-09-10"))
+				.status(1L)
+				.student(student1)
+				.course(course2)
+				.build();
+		courseEnrollmentRepository.save(courseEnrollment1);
+		courseEnrollmentRepository.save(courseEnrollment2);
 	}
 }

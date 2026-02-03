@@ -31,7 +31,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     String method = request.getMethod();
     String path = request.getRequestURI();
-    log.info("JWTCheckFilter shouldNotFilter - method: {}, path: {}", method, path);
+    log.info("#################################JWTCheckFilter shouldNotFilter - method: {}, path: {}", method, path);
 
     // 1) Preflight(CORS) OPTIONS는 무조건 제외
     if ("OPTIONS".equalsIgnoreCase(method)) {
@@ -50,6 +50,9 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     if (path.startsWith("/user/login")) {
       return true;
     }
+
+  if (path.startsWith("/courses/") || path.equals("/courses")) return true;
+
 
     // 4) 회원가입 (POST /user)
     if ("POST".equalsIgnoreCase(method) && "/user".equals(path)) {
