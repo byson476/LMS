@@ -1,7 +1,9 @@
 package com.lms.user.entity;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.lms.course.entity.CourseEnrollment;
 import com.lms.user.dto.StudentDto;
 
 import jakarta.persistence.Column;
@@ -10,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,17 +32,20 @@ public class Student {
 	@Column(name = "sutdentid")
 	private String sutdentId;
     private Integer grade;
-    private Date enrolledDate;
+    private Date creatDate;
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "userid")
 	private User user;
 
+    @OneToMany(mappedBy = "student")
+    private List<CourseEnrollment> enrollments;
+
     public static Student toEntity(StudentDto studentDto) {
         return Student.builder()
                 .sutdentId(studentDto.getSutdentId())
                 .grade(studentDto.getGrade())
-                .enrolledDate(studentDto.getEnrolledDate())
+                .creatDate(studentDto.getCreatDate())
                 .user(studentDto.getUser())
                 .build();
     }
