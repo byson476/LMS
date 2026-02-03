@@ -50,7 +50,7 @@ Learning Management System (개인 프로젝트)
 
 4. (UML) 시퀀스 다이어그램 - Sequence Diagram 
 
-<img width="1536" height="1024" alt="씨퀀스 다이어그램" src="https://github.com/user-attachments/assets/9ecfa7b0-9ba9-4340-a79a-923528d2bc89" />
+<img width="200" alt="씨퀀스 다이어그램" src="https://github.com/user-attachments/assets/9ecfa7b0-9ba9-4340-a79a-923528d2bc89" />
 
 
 5. (UML) 클래스 다이어그램 - Class Diagram 
