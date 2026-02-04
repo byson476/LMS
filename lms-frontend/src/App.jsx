@@ -9,7 +9,9 @@ import "./assets/css/course.css";
 
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
-import Navigation from "./layout/Navigation";
+import Navigation from "./layout/Navigation"; 
+
+import UserProvider from './context/UserProvider';
 
 import { UserMainPage } from "./page/UserMainPage";
 import { UserRegistPage } from "./page/UserRegistPage";
@@ -22,93 +24,54 @@ import { CourseList } from "./page/course/CourseList";
 
 import { userLoginCheck } from "./util/loginCheck";
 
-/* =====================
-   User Context
-===================== */
-export const UserContext = React.createContext({});
+export const LmsGlobalCommonContext = React.createContext({});
 
 function App() {
   const location = useLocation();
+  const [loginStatus, setLoginStatus] = useState({ isLogin: false, loginUser: {} });
 
-  const [loginStatus, setLoginStatus] = useState({
-    isLogin: false,
-    loginUser: {}
-  });
-
-  /* 로그인 상태 체크 */
   useEffect(() => {
     const { isLogin, member } = userLoginCheck();
-    setLoginStatus({
-      isLogin,
-      loginUser: member
-    });
+    setLoginStatus({ isLogin, loginUser: member });
   }, []);
 
-  /* 로그인 / 회원가입 페이지 */
-  const isAuthPage =
-    location.pathname === "/user_login" ||
-    location.pathname === "/user_regist";
+  const isAuthPage = location.pathname === "/user_login" || location.pathname === "/user_regist";
 
   return (
-    <UserContext.Provider value={{ loginStatus, setLoginStatus }}>
-      {/* ⭐ 전체 화면 기준 */}
-      <div className="app-layout">
-        {isAuthPage ? (
-          /* =====================
-             로그인 / 회원가입 전용
-          ===================== */
+    <UserProvider>
+    <LmsGlobalCommonContext.Provider value={{ loginStatus, setLoginStatus  }}>
+      {isAuthPage ? (
+        <div className="auth-layout">
           <Routes>
-            <Route
-              path="/user_login"
-              element={!loginStatus.isLogin ? <LoginPage /> : <UserMainPage />}
-            />
-            <Route
-              path="/user_regist"
-              element={!loginStatus.isLogin ? <UserRegistPage /> : <UserMainPage />}
-            />
+            <Route path="/user_login" element={!loginStatus.isLogin ? <LoginPage /> : <UserMainPage />} />
+            <Route path="/user_regist" element={!loginStatus.isLogin ? <UserRegistPage /> : <UserMainPage />} />
           </Routes>
-        ) : (
-          /* =====================
-             일반 페이지 레이아웃
-          ===================== */
-          <>
-            <Header />
+        </div>
+      ) : (
+        <>
+          <Header />
 
-            <div className="body-layout">
-              <Navigation />
-
-              {/* ⭐ 여기만 스크롤 */}
-              <main className="main-content">
-                <Routes>
-                  <Route path="/" element={<UserMainPage />} />
-                  <Route path="/user_main" element={<UserMainPage />} />
-
-                  <Route
-                    path="/user_view/:userId"
-                    element={loginStatus.isLogin ? <UserViewPage /> : <UserMainPage />}
-                  />
-
-                  <Route
-                    path="/user_edit/:userId"
-                    element={loginStatus.isLogin ? <UserEditPage /> : <UserMainPage />}
-                  />
-
-                  <Route
-                    path="/course_list/:userId"
-                    element={loginStatus.isLogin ? <CourseList /> : <UserMainPage />}
-                  />
-
-                  <Route path="/member/kakao" element={<KakaoRedirectPage />} />
-                  <Route path="*" element={<UserNonPage />} />
-                </Routes>
-              </main>
+          {/* 🔥 좌우 레이아웃: Navigation + Content */}
+          <div id="wrapper">
+            <Navigation id="navigation" />
+            <div id="content">
+              <Routes>
+                <Route path="/" element={<UserMainPage />} />
+                <Route path="/user_main" element={<UserMainPage />} />
+                <Route path="/user_view/:userId" element={loginStatus.isLogin ? <UserViewPage /> : <UserMainPage />} />
+                <Route path="/user_edit/:userId" element={loginStatus.isLogin ? <UserEditPage /> : <UserMainPage />} />
+                <Route path="/course_list/:userId" element={loginStatus.isLogin ? <CourseList /> : <UserMainPage />} />
+                <Route path="/member/kakao" element={<KakaoRedirectPage />} />
+                <Route path="*" element={<UserNonPage />} />
+              </Routes>
             </div>
+          </div>
 
-            <Footer />
-          </>
-        )}
-      </div>
-    </UserContext.Provider>
+          <Footer />
+        </>
+      )}
+    </LmsGlobalCommonContext.Provider>
+    </UserProvider>
   );
 }
 

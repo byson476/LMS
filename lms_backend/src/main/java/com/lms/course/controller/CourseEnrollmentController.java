@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.course.CourseEnrollmentService;
 import com.lms.course.dto.CourseDto;
-import com.lms.course.entity.Course;
-import com.lms.user.dto.StudentDto;
+
 import com.lms.user.entity.Student;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +31,9 @@ public class CourseEnrollmentController {
 	@Operation(summary = "수강 목록 조회", description = "사용자의 수강 목록을 조회합니다")
 	@GetMapping(value = "/courses/{userId}")
 	public ResponseEntity<Map<String, Object>> courses_list(@PathVariable(value = "userId") String userId) throws Exception {
-        Student student = Student.builder()
+        System.out.println("########### courses_list userId : " + userId);
+		
+		Student student = Student.builder()
 								.studentId(userId)
 								.build();
 		Map<String, Object> resultMap = new HashMap<>();

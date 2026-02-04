@@ -1,12 +1,12 @@
 import React, { useContext , useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from "../App"
+import { LmsGlobalCommonContext } from "../App"
 import * as userApi from '../api/userApi';
 import { removeCookie } from '../util/cookieUtil';
 import useCustomLogout from '../hook/useCustomLogout';
 function Navigation() {
     /*
-    const { loginStatus, setLoginStatus } = useContext(UserContext);
+    const { loginStatus, setLoginStatus } = useContext(LmsGlobalCommonContext);
     console.log(">>> Navigation.jsx update")
     console.log(">>> Navigation loginStatus:", loginStatus);
 

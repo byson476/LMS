@@ -2,10 +2,10 @@ import { useContext, useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as userApi from '../api/userApi';
 import * as ResponseStatusCode from '../api/ResponseStatusCode';
-import { UserContext } from "../App";
+import { LmsGlobalCommonContext } from "../App";
 import { removeCookie } from "../util/cookieUtil";
 export const UserModifyFormPage = () => {
-  const { loginStatus, setLoginStatus } = useContext(UserContext);
+  const { loginStatus, setLoginStatus } = useContext(LmsGlobalCommonContext);
   const navigate = useNavigate();
   const modifyFormRef = useRef();
   const { userId } = useParams();

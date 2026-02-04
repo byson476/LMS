@@ -3,7 +3,7 @@ import { Link, useNavigate, useNavigation } from "react-router-dom";
 import * as userApi from "../api/userApi";
 import * as ResponseStatusCode from "../api/ResponseStatusCode";
 import * as ResponseMessage from "../api/ResponseMessage";
-import { UserContext } from '../App';
+import { LmsGlobalCommonContext } from '../App';
 import { setCookie } from "../util/cookieUtil";
 import KakaoLoginComponent from "../component/KakaoLoginComponent";
 import useLoginForm from "../hook/useLoginForm";
@@ -11,7 +11,7 @@ import useLoginForm from "../hook/useLoginForm";
 export const UserLoginFormPage = () => {
   const { loginFormRef, user, handleChangeLoginForm, message, userLoginAction } = useLoginForm();
   /*
-  const { loginStatus, setLoginStatus } = useContext(UserContext);
+  const { loginStatus, setLoginStatus } = useContext(LmsGlobalCommonContext);
   const loginFormRef = useRef();
   const navigate = useNavigate();
   const [user, setUser] = useState({

@@ -26,7 +26,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@ToString
 @Entity
 public class Tutor {
 	@Id

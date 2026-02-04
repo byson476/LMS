@@ -2,9 +2,12 @@
    강의 목록 페이지
 ===================== */
 .course-page {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
+
+
 
 /* 상단 타이틀 */
 .page-header {

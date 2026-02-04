@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.lms.course.dto.CourseDto;
 import com.lms.course.entity.Course;
-import com.lms.course.entity.CourseEnrollment;
 import com.lms.course.repository.CourseEnrollmentRepository;
 import com.lms.course.repository.CourseRepository;
 import com.lms.user.entity.Student;
 import com.lms.user.repository.StudentRepository;
-import com.lms.user.repository.UserRepository;
 
 import lombok.Builder;
 
@@ -36,10 +34,13 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService{
 @Override
 @Transactional
 public List<CourseDto> courseList(Student student) {
+
+System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!courseList    :::: " );
 	Student studentEntity = studentRepository.findById(student.getStudentId())
 		.orElseThrow(() -> new RuntimeException("학생 없음"));
     List<Course> courses =
             courseEnrollmentRepository.findCoursesByStudent(studentEntity.getStudentId());
+
 
     return courses.stream()
         .map(course -> CourseDto.builder()

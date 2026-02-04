@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getAccessToken, getMemberWithAccessToken } from "../api/kakaoApi";
-import { UserContext } from '../App';
+import { LmsGlobalCommonContext } from '../App';
 import { setCookie } from "../util/cookieUtil";
 import * as ResponseStatusCode from "../api/ResponseStatusCode";
 const KakaoRedirectPage = () => {
-  const { setLoginStatus } = useContext(UserContext);
+  const { setLoginStatus } = useContext(LmsGlobalCommonContext);
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const authCode = searchParams.get("code");
