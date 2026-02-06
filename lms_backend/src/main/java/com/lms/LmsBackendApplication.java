@@ -83,7 +83,7 @@ public class LmsBackendApplication  implements CommandLineRunner {
 		userRepository.save(user4);
 
 		Student student1 = Student.builder()
-				.studentId(user1.getUserId())
+				.sutdentId(user1.getUserId())
 				.grade(1)
 				.creatDate(java.sql.Date.valueOf("2023-03-01"))
 				.user(user1)

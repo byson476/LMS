@@ -31,8 +31,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     String method = request.getMethod();
     String path = request.getRequestURI();
-    log.info("#################################JWTCheckFilter shouldNotFilter - method: {}, path: {}", method, path);
-    
+    log.info("JWTCheckFilter shouldNotFilter - method: {}, path: {}", method, path);
+
     // 1) Preflight(CORS) OPTIONS는 무조건 제외
     if ("OPTIONS".equalsIgnoreCase(method)) {
       return true;
@@ -50,9 +50,6 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     if (path.startsWith("/user/login")) {
       return true;
     }
-
-  if (path.startsWith("/courses/") || path.equals("/courses")) return true;
-
 
     // 4) 회원가입 (POST /user)
     if ("POST".equalsIgnoreCase(method) && "/user".equals(path)) {
@@ -77,10 +74,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     log.info("2.------------------------JWTCheckFilter.......................");
     try {
       String accessToken = "";
-        log.info("111111111111#############Authorization Header = [{}]", authHeaderStr);
       if (StringUtils.hasText(authHeaderStr) && authHeaderStr.startsWith("Bearer")) {
         accessToken = authHeaderStr.substring(7);
-
       }
       log.info("3.------------------------JWTCheckFilter.......................");
       Map<String, Object> claims = JWTUtil.validateToken(accessToken);

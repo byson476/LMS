@@ -12,7 +12,6 @@ export const authHeaders = (extra = {}) => {
   }
 
   const accessToken = member?.accessToken;
-
   return {
     ...extra,
     ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),

@@ -181,3 +181,14 @@
   font-weight: bold;
 }
 
+/* 강의명 링크 스타일 */
+.course-list .course-title {
+  cursor: pointer;
+  color: #5f63e6;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.course-list .course-title:hover {
+  color: #2c3ebd;
+}

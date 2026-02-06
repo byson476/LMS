@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getAccessToken, getMemberWithAccessToken } from "../api/kakaoApi";
-import { UserContext } from '../App';
-import { setCookie } from "../util/cookieUtil";
-import * as ResponseStatusCode from "../api/ResponseStatusCode";
+import { getAccessToken, getMemberWithAccessToken } from "../../api/kakaoApi";
+import { UserContext } from '../../App';
+import { setCookie } from "../../util/cookieUtil";
+import * as ResponseStatusCode from "../../api/ResponseStatusCode";
 const KakaoRedirectPage = () => {
   const { setLoginStatus } = useContext(UserContext);
   const [searchParams] = useSearchParams()

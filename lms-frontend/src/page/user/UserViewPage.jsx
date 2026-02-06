@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import * as userApi from "../api/userApi";
-import * as ResponseStatusCode from "../api/ResponseStatusCode";
-import { UserContext } from "../App";
-import { removeCookie, getCookie, setCookie } from "../util/cookieUtil";
+import * as userApi from "../../api/userApi";
+import * as ResponseStatusCode from "../../api/ResponseStatusCode";
+import { UserContext } from "../../App";
+import { removeCookie, getCookie, setCookie } from "../../util/cookieUtil";
 
 export const UserViewPage = () => {
   const { loginStatus, setLoginStatus } = useContext(UserContext);

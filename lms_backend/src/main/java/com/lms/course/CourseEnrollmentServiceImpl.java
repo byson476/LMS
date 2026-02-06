@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.lms.course.dto.CourseDto;
+import com.lms.course.dto.CourseEnrollmentViewDto;
 import com.lms.course.entity.Course;
 import com.lms.course.repository.CourseEnrollmentRepository;
 import com.lms.course.repository.CourseRepository;
 import com.lms.user.entity.Student;
+import com.lms.user.entity.Tutor;
 import com.lms.user.repository.StudentRepository;
+import com.lms.user.repository.TutorRepository;
 
 import lombok.Builder;
 
@@ -29,18 +33,19 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService{
     private CourseRepository courseRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private TutorRepository tutorRepository;
 
 
 @Override
 @Transactional
-public List<CourseDto> courseList(Student student) {
+public List<CourseEnrollmentViewDto> courseListStudent(String userId) {
+    Student studentEntity = studentRepository.findById(userId).orElseThrow(() -> new RuntimeException("학생 없음"));
 
-System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!courseList    :::: " );
-	Student studentEntity = studentRepository.findById(student.getStudentId())
-		.orElseThrow(() -> new RuntimeException("학생 없음"));
-    List<Course> courses =
-            courseEnrollmentRepository.findCoursesByStudent(studentEntity.getStudentId());
 
+    List<CourseEnrollmentViewDto> courseEnrollmentViewDtos = courseEnrollmentRepository.findCourseEnrollmentsByStudent(studentEntity.getSutdentId());
+    /*List<Course> courses = courseEnrollmentRepository.findCoursesByStudent(studentEntity.getStudentId());
+    //los
 
     return courses.stream()
         .map(course -> CourseDto.builder()
@@ -49,7 +54,8 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!courseList    :::: " );
             .description(course.getDescription())
             .build()
         )
-        .toList();
+        .toList();*/
+        return courseEnrollmentViewDtos;
 }
 
 

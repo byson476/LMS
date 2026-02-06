@@ -4,8 +4,9 @@ const BACKEND_SERVER='http://localhost:8080';
 
 
 
-export const courseList=async(userId)=>{
-	const response= await fetch(`${BACKEND_SERVER}/courses/${userId}`,
+export const courseList=async(userId, userRole)=>{
+	const response= await fetch(`${BACKEND_SERVER}/courses/${userId}?role=${userRole}`,
+    //const response= await fetch(`${BACKEND_SERVER}/courses/${userId}`,
     {
         method:"GET",
         headers: authHeaders(),   

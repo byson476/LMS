@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { LmsGlobalCommonContext } from "../App"
+import { UserContext } from "../App"
 import { useContext } from "react";
 import * as userApi from "../api/userApi";
 import { removeCookie } from "../util/cookieUtil";
 
 const useCustomLogout = () => {
-    const { loginStatus, setLoginStatus } = useContext(LmsGlobalCommonContext);
+    const { loginStatus, setLoginStatus } = useContext(UserContext);
     const navigate = useNavigate();
     const userLogoutAction = async () => {
         const responseJsonObject = await userApi.userLogoutAction();

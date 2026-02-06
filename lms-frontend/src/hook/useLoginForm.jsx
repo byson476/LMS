@@ -4,9 +4,9 @@ import * as userApi from "../api/userApi";
 import * as ResponseStatusCode from "../api/ResponseStatusCode";
 import * as ResponseMessage from "../api/ResponseMessage";
 import {setCookie} from "../util/cookieUtil.js";
-import {LmsGlobalCommonContext} from "../App"
+import {UserContext} from "../App"
 const useLoginForm = () => {
-    const { loginStatus, setLoginStatus } = useContext(LmsGlobalCommonContext);
+    const { loginStatus, setLoginStatus } = useContext(UserContext);
     const loginFormRef = useRef();
     const navigate = useNavigate();
     const [user, setUser] = useState({

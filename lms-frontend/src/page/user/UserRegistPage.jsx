@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as userApi from '../api/userApi';
-import * as responseStatusCode from '../api/ResponseStatusCode';
-import * as responseMessage from '../api/ResponseMessage';
+import * as userApi from '../../api/userApi';
+import * as responseStatusCode from '../../api/ResponseStatusCode';
+import * as responseMessage from '../../api/ResponseMessage';
 
 export const UserRegistPage = () => {
   const navigate = useNavigate();

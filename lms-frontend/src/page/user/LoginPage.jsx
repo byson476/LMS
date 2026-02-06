@@ -1,12 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
-import * as userApi from "../api/userApi";
-import * as ResponseStatusCode from "../api/ResponseStatusCode";
-import * as ResponseMessage from "../api/ResponseMessage";
-import { UserContext } from '../App';
-import { setCookie } from "../util/cookieUtil";
-import KakaoLoginComponent from "../component/KakaoLoginComponent";
-import useLoginForm from "../hook/useLoginForm";
+import * as userApi from "../../api/userApi";
+import * as ResponseStatusCode from "../../api/ResponseStatusCode";
+import * as ResponseMessage from "../../api/ResponseMessage";
+import { UserContext } from '../../App';
+import { setCookie } from "../../util/cookieUtil";
+import KakaoLoginComponent from "../../component/KakaoLoginComponent";
+import useLoginForm from "../../hook/useLoginForm";
 
 export const LoginPage = () => {
   const { loginFormRef, user, handleChangeLoginForm, message, userLoginAction } = useLoginForm();

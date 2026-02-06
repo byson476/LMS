@@ -1,6 +1,6 @@
 import React, { useContext , useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { LmsGlobalCommonContext } from "../App"
+import { UserContext } from "../App"
 import * as userApi from '../api/userApi';
 import { removeCookie } from '../util/cookieUtil';
 import useCustomLogout from '../hook/useCustomLogout';
@@ -42,10 +42,7 @@ useEffect(() => {
                     </>
                 ) : (
                     <>
-
-
                         {/*로그인후 start */}
-
                         <li className="nav-user">
                         [{loginStatus.loginUser.roleNames?.join(', ')}]
                         {loginStatus.loginUser.name} 님 환영합니다.
@@ -66,7 +63,14 @@ useEffect(() => {
                         )}
 
                         {loginStatus.loginUser.roleNames?.includes('TUTOR') && (
+                        <>
                         <li>강사 메뉴</li>
+                            <li><Link to={`/course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
+                            <li><Link to={`/user_view/${loginStatus.loginUser.userId}`}>마이페이지</Link></li>
+                            <li>
+                                <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
+                            </li>
+                        </>
                         )}
 
                         {loginStatus.loginUser.roleNames?.includes('ADMIN') && (

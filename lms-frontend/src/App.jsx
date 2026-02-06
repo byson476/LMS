@@ -13,33 +13,44 @@ import Navigation from "./layout/Navigation";
 
 import UserProvider from './context/UserProvider';
 
-import { UserMainPage } from "./page/UserMainPage";
-import { UserRegistPage } from "./page/UserRegistPage";
-import { LoginPage } from "./page/LoginPage";
-import { UserViewPage } from "./page/UserViewPage";
-import { UserEditPage } from "./page/UserEditPage";
-import { UserNonPage } from "./page/UserNonePage";
-import KakaoRedirectPage from "./page/KakaoRedirectPage";
-import { CourseList } from "./page/course/CourseList";
+import  UserMainPage  from "./page/user/UserMainPage.jsx";
+import { UserRegistPage } from "./page/user/UserRegistPage";
+import { LoginPage } from "./page/user/LoginPage";
+import { UserViewPage } from "./page/user/UserViewPage";
+import { UserEditPage } from "./page/user/UserEditPage";
+import { UserNonPage } from "./page/user/UserNonePage";
+import KakaoRedirectPage from "./page/user/KakaoRedirectPage";
+import { CourseListStudent } from "./page/course/CourseListStudent";
 
 import { userLoginCheck } from "./util/loginCheck";
 
-export const LmsGlobalCommonContext = React.createContext({});
+/********1.초기값이 {} 인 Context객체생성후 App.jsx 에서 export */
+export const UserContext = React.createContext({});
 
 function App() {
-  const location = useLocation();
-  const [loginStatus, setLoginStatus] = useState({ isLogin: false, loginUser: {} });
-
+  const [loginStatus, setLoginStatus] = useState(
+    {
+      isLogin: false,
+      loginUser: {}
+    }
+  );
   useEffect(() => {
-    const { isLogin, member } = userLoginCheck();
-    setLoginStatus({ isLogin, loginUser: member });
+    (async () => {
+      const { isLogin, member } = userLoginCheck();
+      console.log("userLoginCheck:", isLogin, member)
+      setLoginStatus({
+        isLogin: isLogin,
+        loginUser: member
+      });
+    })();
   }, []);
+  console.log(">>> App.jsx update")
+  console.log(">>> App.jsx loginStatus:", loginStatus);
 
   const isAuthPage = location.pathname === "/user_login" || location.pathname === "/user_regist";
 
   return (
-    <UserProvider>
-    <LmsGlobalCommonContext.Provider value={{ loginStatus, setLoginStatus  }}>
+    <UserContext.Provider value={{ loginStatus, setLoginStatus  }}>
       {isAuthPage ? (
         <div className="auth-layout">
           <Routes>
@@ -60,7 +71,7 @@ function App() {
                 <Route path="/user_main" element={<UserMainPage />} />
                 <Route path="/user_view/:userId" element={loginStatus.isLogin ? <UserViewPage /> : <UserMainPage />} />
                 <Route path="/user_edit/:userId" element={loginStatus.isLogin ? <UserEditPage /> : <UserMainPage />} />
-                <Route path="/course_list/:userId" element={loginStatus.isLogin ? <CourseList /> : <UserMainPage />} />
+                <Route path="/course_list/:userId" element={loginStatus.isLogin ? <CourseListStudent /> : <UserMainPage />} />
                 <Route path="/member/kakao" element={<KakaoRedirectPage />} />
                 <Route path="*" element={<UserNonPage />} />
               </Routes>
@@ -70,8 +81,7 @@ function App() {
           <Footer />
         </>
       )}
-    </LmsGlobalCommonContext.Provider>
-    </UserProvider>
+    </UserContext.Provider>
   );
 }
 

@@ -3,6 +3,7 @@ package com.lms.course;
 import java.util.List;
 
 import com.lms.course.dto.CourseDto;
+import com.lms.course.dto.CourseEnrollmentViewDto;
 import com.lms.user.entity.Student;
 
 import jakarta.transaction.Transactional;
@@ -16,7 +17,7 @@ public interface CourseEnrollmentService  {
 	
 
 	// Student로 course가져옴
-    public List <CourseDto> courseList(Student student) throws Exception;
+    public List <CourseEnrollmentViewDto> courseListStudent(String userId) throws Exception;
 
     /*
 	 * cartItemId로삭제
