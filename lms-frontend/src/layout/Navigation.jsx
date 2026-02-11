@@ -51,7 +51,7 @@ useEffect(() => {
                         {loginStatus.loginUser.roleNames?.includes('STUDENT') && (
                         <>
                             <li>학생 메뉴</li>
-                            <li><Link to={`/course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
+                            <li><Link to={`/student_course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
                             <li>과제</li>
                             <li>시험</li>
                             <li>공지사항</li>
@@ -65,7 +65,7 @@ useEffect(() => {
                         {loginStatus.loginUser.roleNames?.includes('TUTOR') && (
                         <>
                         <li>강사 메뉴</li>
-                            <li><Link to={`/course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
+                            <li><Link to={`/tutor_course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
                             <li><Link to={`/user_view/${loginStatus.loginUser.userId}`}>마이페이지</Link></li>
                             <li>
                                 <Link to={''} onClick={userLogoutAction}>로그아웃</Link>

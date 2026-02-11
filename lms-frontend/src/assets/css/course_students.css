@@ -1,0 +1,207 @@
+/* =====================
+   공통 페이지
+===================== */
+.course-page,
+.course-students-page {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* =====================
+   페이지 헤더
+===================== */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  color: #1f3c88;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: #666;
+}
+
+/* =====================
+   🔥 카드 리스트 (강의 / 학생 공용)
+===================== */
+.course-list,
+.student-list {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* =====================
+   카드 공통
+===================== */
+.course-card,
+.student-card {
+  display: flex;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* =====================
+   썸네일
+===================== */
+.course-thumbnail,
+.student-thumbnail {
+  width: 120px;
+  min-width: 120px;
+  background: linear-gradient(135deg, #6b6be3, #7b6fd6);
+}
+
+/* =====================
+   카드 내용
+===================== */
+.course-info,
+.student-info {
+  flex: 1;
+  padding: 20px;
+}
+
+.course-info h2,
+.student-info h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+/* =====================
+   링크 텍스트
+===================== */
+.course-title,
+.student-name {
+  cursor: pointer;
+  color: #5f63e6;
+  text-decoration: underline;
+}
+
+.course-title:hover,
+.student-name:hover {
+  color: #2c3ebd;
+}
+
+/* =====================
+   보조 텍스트
+===================== */
+.instructor,
+.student-email {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+/* =====================
+   메타 정보
+===================== */
+.course-meta,
+.student-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 10px;
+  color: #555;
+}
+
+/* =====================
+   버튼
+===================== */
+.continue-btn,
+.student-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #5f63e6;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.continue-btn.done {
+  background: #2ecc71;
+}
+
+/* =====================
+   필터 버튼
+===================== */
+.course-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.course-filter button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #e0e3ff;
+  cursor: pointer;
+}
+
+.course-filter button.active {
+  background: #5f63e6;
+  color: #ffffff;
+}
+
+/* =====================
+   pagination
+===================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.pagination button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover {
+  background: #6b6be3;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.pagination button.active {
+  background: #6b6be3;
+  color: #ffffff;
+  cursor: default;
+}
+
+/* =====================
+   🔥 반응형
+===================== */
+@media (max-width: 1200px) {
+  .course-list,
+  .student-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .course-list,
+  .student-list {
+    grid-template-columns: 1fr;
+  }
+}

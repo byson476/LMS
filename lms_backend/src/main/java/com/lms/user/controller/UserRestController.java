@@ -89,7 +89,7 @@ public class UserRestController {
 
 	@Operation(summary = "회원로그아웃")
 	@SecurityRequirement(name = "BearerAuth")
-	@PreAuthorize("hasAnyRole('ROLE_USER')") // 권한 설정
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_TUTOR','ROLE_ADMIN')") // 권한 설정
 	@GetMapping("/logout")
 	public ResponseEntity<Response> user_logout_action(HttpSession session) throws Exception {
 		session.invalidate();
@@ -106,7 +106,7 @@ public class UserRestController {
 	@SecurityRequirement(name = "BearerAuth")
 	
 	@GetMapping("/{userId}")
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_TUTOR','ROLE_ADMIN')")
 	public ResponseEntity<Response> user_view(
 			@PathVariable("userId") String userId)
 			throws Exception {
@@ -129,7 +129,7 @@ public class UserRestController {
 
 	@Operation(summary = "회원수정")
 	@SecurityRequirement(name = "BearerAuth")
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_TUTOR','ROLE_ADMIN')")
 	@PutMapping("/{userId}")
 	public ResponseEntity<Response> user_modify_action(@PathVariable("userId") String userId,
 			@RequestBody UserDto userDto)
@@ -153,7 +153,7 @@ public class UserRestController {
 
 	@Operation(summary = "회원탈퇴")
 	@SecurityRequirement(name = "BearerAuth")
-	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_TUTOR','ROLE_ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Response> user_remove_action(@PathVariable("userId") String userId)
 			throws Exception {
@@ -189,7 +189,7 @@ public class UserRestController {
 
 	@Operation(summary = "소셜회원정보보기")
 	@SecurityRequirement(name = "BearerAuth")
-	@PreAuthorize("hasAnyRole('ROLE_USER')") // 임시로 권한 설정
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_TUTOR','ROLE_ADMIN')") // 임시로 권한 설정
 	@GetMapping("/social/{email}")
 	public ResponseEntity<Response> user_view_email(
 			@PathVariable("email") String email,

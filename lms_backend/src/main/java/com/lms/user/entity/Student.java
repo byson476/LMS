@@ -28,8 +28,8 @@ import lombok.ToString;
 @Entity
 public class Student {
 	@Id
-	@Column(name = "sutdentid")
-	private String sutdentId;
+	@Column(name = "studentid")
+	private String studentId;
     private Integer grade;
     private Date creatDate;
 
@@ -42,7 +42,7 @@ public class Student {
 
     public static Student toEntity(StudentDto studentDto) {
         return Student.builder()
-                .sutdentId(studentDto.getSutdentId())
+                .studentId(studentDto.getStudentId())
                 .grade(studentDto.getGrade())
                 .creatDate(studentDto.getCreatDate())
                 .user(studentDto.getUser())

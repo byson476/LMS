@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StudentDto {
-	private String sutdentId;
+	private String studentId;
     private Integer grade;
     private Date creatDate;
 	private User user;
     public static StudentDto toDto(com.lms.user.entity.Student studentEntity) {
         return StudentDto.builder()
-                .sutdentId(studentEntity.getSutdentId())
+                .studentId(studentEntity.getStudentId())
                 .grade(studentEntity.getGrade())
                 .creatDate(studentEntity.getCreatDate())
                 .user(studentEntity.getUser())

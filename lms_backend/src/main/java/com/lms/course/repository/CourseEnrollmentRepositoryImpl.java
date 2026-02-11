@@ -4,18 +4,18 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import com.lms.course.dto.CourseEnrollmentDto;
-import com.lms.course.dto.CourseEnrollmentViewDto;
-import com.lms.course.entity.Course;
-import com.lms.course.entity.CourseEnrollment;
+import com.lms.course.dto.StudentCourselistDto;
+import com.lms.course.dto.TutorStudentListDto;
+import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.entity.QCourse;
 import com.lms.course.entity.QCourseEnrollment;
-import com.lms.user.entity.QStudent;
 import com.lms.user.entity.QTutor;
 import com.lms.user.entity.QUser;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
@@ -32,28 +32,17 @@ private final QUser user = QUser.user;   // ⚠ userinfo 엔티티 기준
     public CourseEnrollmentRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
-/* 
-    @Override
-    public List<Course> findCoursesByStudent(String studentId) {
-        return queryFactory
-            .select(course)
-            .from(courseEnrollment)
-            .join(courseEnrollment.course, course)
-            .where(courseEnrollment.student.studentId.eq(studentId))
-            .fetch();
-    }
-        */
-    @Override
-    public List<CourseEnrollmentViewDto> findCourseEnrollmentsByStudent(String studentId) {
 
+    @Override
+    public List<StudentCourselistDto> findCourseEnrollmentsByStudent(String studentId) {
         return queryFactory
             .select(Projections.constructor(
-                CourseEnrollmentViewDto.class,
+                com.lms.course.dto.StudentCourselistDto.class,
                 courseEnrollment.enrolledDate,
                 course.courseId,
                 courseEnrollment.enrollmentId,
                 courseEnrollment.status,
-                courseEnrollment.student.sutdentId,
+                courseEnrollment.student.studentId,
                 user.name,
                 course.title,
                 course.description
@@ -62,30 +51,28 @@ private final QUser user = QUser.user;   // ⚠ userinfo 엔티티 기준
             .join(courseEnrollment.course, course)
             .join(course.tutor, tutor)
             .join(tutor.user, user)
-            .where(courseEnrollment.student.sutdentId.eq(studentId))
+            .where(courseEnrollment.student.studentId.eq(studentId))
             .fetch();
     }
+
 
     @Override
-    public List<CourseEnrollmentViewDto> findCourseEnrollmentsByTutor(String tutorId) {
+    public List<TutorStudentListDto> findStudentsByCourse(Long courseId) {
         return queryFactory
-            .select(Projections.constructor(
-                CourseEnrollmentViewDto.class,
-                courseEnrollment.enrolledDate,
-                course.courseId,
-                courseEnrollment.enrollmentId,
-                courseEnrollment.status,
-                courseEnrollment.student.sutdentId,
-                user.name,
-                course.title,
-                course.description
-            ))
-            .from(courseEnrollment)
-            .join(courseEnrollment.course, course)
-            .join(course.tutor, tutor)
-            .join(courseEnrollment.student.user, user)
-            .where(tutor.tutorId.eq(tutorId))
-            .fetch();
-    }
+        .select(Projections.constructor(
+            TutorStudentListDto.class,
+            courseEnrollment.student.studentId,
+            user.name,
+            user.email,
+            Expressions.stringTemplate(
+                "to_char({0}, 'YYYY-MM-DD')",
+                courseEnrollment.enrolledDate
+            )
+        ))
+        .from(courseEnrollment)
+        .join(user).on(courseEnrollment.student.studentId.eq(user.userId))
+        .where(courseEnrollment.course.courseId.eq(courseId))
+        .fetch();
 
+        }
 }

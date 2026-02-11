@@ -192,3 +192,154 @@
 .course-list .course-title:hover {
   color: #2c3ebd;
 }
+/* =====================
+   강의별 학생 목록 페이지
+===================== */
+.course-students-page {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 헤더 */
+.course-students-page .page-header {
+  margin-bottom: 30px;
+}
+
+.course-students-page .page-header h1 {
+  font-size: 26px;
+  color: #1f3c88;
+}
+
+.course-students-page .page-header p {
+  margin-top: 6px;
+  color: #666;
+}
+
+/* =====================
+   학생 목록 테이블
+===================== */
+.student-list {
+  width: 100%;
+}
+
+.student-list table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 헤더 */
+.student-list thead {
+  background: #f3f4ff;
+}
+
+.student-list th {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+/* 바디 */
+.student-list td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+}
+
+/* hover */
+.student-list tbody tr:hover {
+  background: #f8f9ff;
+}
+
+/* =====================
+   하단 버튼 영역
+===================== */
+.bottom-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bottom-actions .btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #5f63e6;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+
+.bottom-actions .btn:hover {
+  background: #2c3ebd;
+  transform: translateY(-2px);
+}
+/* =====================
+   강의별 학생 목록 페이지 (FIX)
+===================== */
+.course-students-page {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 🔥 grid 완전 차단 */
+.course-students-page .course-list,
+.course-students-page .student-list {
+  display: block !important;
+}
+
+/* 테이블 */
+.course-students-page table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.course-students-page thead {
+  background: #f3f4ff;
+}
+
+.course-students-page th {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.course-students-page td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.course-students-page tbody tr:hover {
+  background: #f8f9ff;
+}
+
+/* 하단 버튼 */
+.course-students-page .bottom-actions {
+  margin-top: 30px;
+}
+
+.course-students-page .btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #5f63e6;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}

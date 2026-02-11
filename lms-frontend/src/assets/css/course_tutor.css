@@ -1,0 +1,183 @@
+/* =====================
+   강의 목록 페이지 (강사용)
+===================== */
+.course-page {
+  width: 100%;
+  max-width: none;              /* 🔥 상위 max-width 무시 */
+  margin: 0;
+  padding: 0 24px;              /* 여백은 padding으로 */
+  box-sizing: border-box;
+}
+
+/* 상단 타이틀 */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  color: #1f3c88;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: #666;
+}
+
+/* =====================
+   🔥 강의 목록 테이블
+===================== */
+.course-list {
+  display: block;
+  width: 100%;
+}
+
+.course-list table {
+  width: 100%;
+  min-width: 1000px;            /* 🔥 테이블 눌림 방지 */
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 헤더 */
+.course-list thead {
+  background: #f3f4ff;
+}
+
+.course-list th {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+/* 바디 */
+.course-list td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+}
+
+/* hover */
+.course-list tbody tr:hover {
+  background: #f8f9ff;
+}
+
+/* 강의명 링크 */
+.course-title {
+  color: #5f63e6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.course-title:hover {
+  color: #2c3ebd;
+  text-decoration: underline;
+}
+
+/* =====================
+   pagination
+===================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 40px 0;
+}
+
+.pagination button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover {
+  background: #6b6be3;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.pagination button.active {
+  background: #6b6be3;
+  color: #ffffff;
+  cursor: default;
+}
+
+/* =====================
+   📘 강의별 학생 목록 페이지 (강사용)
+===================== */
+.course-students-page {
+  width: 100%;
+  max-width: none;              /* 🔥 여기 핵심 */
+  margin: 0;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* 학생 테이블 */
+.student-list {
+  width: 100%;
+}
+
+.student-list table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.student-list thead {
+  background: #f3f4ff;
+}
+
+.student-list th,
+.student-list td {
+  padding: 14px 16px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.student-list tbody tr:hover {
+  background: #f8f9ff;
+}
+
+/* 하단 버튼 */
+.bottom-actions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bottom-actions .btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #6b6be3;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 14px rgba(107, 107, 227, 0.35);
+}
+
+.bottom-actions .btn:hover {
+  background: #2c3ebd;
+}

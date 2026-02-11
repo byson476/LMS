@@ -31,7 +31,7 @@ import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.StudentCourselistDto;
 import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
-import com.lms.course.dto.TutorStudentListDto;
+import com.lms.course.dto.StudentListForCourseTutorDto;
 import com.lms.user.UserService;
 import com.lms.user.controller.Response;
 import com.lms.course.controller.ResponseMessage;
@@ -58,10 +58,8 @@ DELETE 	/user/{id} 			- Delete the user with id
 */
 
 @RestController
-@RequestMapping("/coursee")
-public class CourseEnrollmentRestController {
-	@Autowired
-	private CourseEnrollmentService courseEnrollmentService;
+@RequestMapping("/course")
+public class CourseRestController {
 	@Autowired
 	private CourseService courseService;
 
@@ -73,41 +71,19 @@ public class CourseEnrollmentRestController {
 
 		return SecurityContextHolder.getContext();
 	}
-
-	@Operation(summary = "학생 - 수강 강좌 목록 보기")
+	@Operation(summary = "강사 - 개설 강좌 목록 보기")
 	@SecurityRequirement(name = "BearerAuth")
-	@GetMapping("student_courselist/{userId}")
-	@PreAuthorize("hasAnyRole('ROLE_STUDENT')")
-	public ResponseEntity<Response> findStudentCourselist(@PathVariable("userId") String userId)throws Exception {
-		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
-			throw new AccessDeniedException("접근 권한 없음");
-		}
-		Response response = new Response();
-		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
-		response.setMessage(ResponseMessage.COURSE_SUCCESS);
-		List <StudentCourselistDto> studentCourselistDto = courseEnrollmentService.findStudentCourselist(userId);
-		response.setData(studentCourselistDto);
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
-		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
-		return responseEntity;
-	}
-
-	@Operation(summary = "강사 - CourseID로 수강중인 학생리스트 가져옴")
-	@SecurityRequirement(name = "BearerAuth")
-	@GetMapping("tutor_students/{userId}")
+	@GetMapping("tutor_courselist/{userId}")
 	@PreAuthorize("hasAnyRole('ROLE_TUTOR')")
-	public ResponseEntity<Response> findStudentsByCourse(@PathVariable("userId") String userId, @RequestParam("courseId") String courseId)throws Exception {
+	public ResponseEntity<Response> findTutorCourselist(@PathVariable("userId") String userId)throws Exception {
 		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
 			throw new AccessDeniedException("접근 권한 없음");
 		}
 		Response response = new Response();
 		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
 		response.setMessage(ResponseMessage.COURSE_SUCCESS);
-		
-		List <TutorStudentListDto> tutorStudentList = courseEnrollmentService.findStudentsByCourse(Long.valueOf(courseId));
-			System.out.println("##############################tutorStudentList:"+tutorStudentList);
-		response.setData(tutorStudentList);
+		List <TutorCoursesWithStudentCountDto> courseWithStudentCountDtoList = courseService.findTutorCourselist(userId);
+		response.setData(courseWithStudentCountDtoList);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);

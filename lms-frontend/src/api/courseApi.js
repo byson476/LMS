@@ -2,20 +2,44 @@ import {authHeaders} from "./authHeader";
 
 const BACKEND_SERVER='http://localhost:8080';
 
-
-
-export const courseList=async(userId, userRole)=>{
-	const response= await fetch(`${BACKEND_SERVER}/courses/${userId}?role=${userRole}`,
-    //const response= await fetch(`${BACKEND_SERVER}/courses/${userId}`,
+//학생 - 수강 강의 목록
+export const useStudentCourselist=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/coursee/student_courselist/${userId}`,
     {
         method:"GET",
         headers: authHeaders(),   
     });
-	
 	return await response.json();
 }
 
+//강사 - 개설 강의 목록
+export const useTutorCourselist=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/course/tutor_courselist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
 
+// 강사 - 강의별 수강 학생 목록
+export const useTutorStudentlist=async(userId, courseId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/coursee/tutor_students/${userId}?courseId=${courseId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
+
+export const studentList=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/courses/student/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
 
 
 

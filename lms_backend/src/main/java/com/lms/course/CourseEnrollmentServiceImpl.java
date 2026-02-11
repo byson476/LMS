@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.lms.course.dto.CourseDto;
-import com.lms.course.dto.CourseEnrollmentViewDto;
+import com.lms.course.dto.StudentCourselistDto;
+import com.lms.course.dto.TutorStudentListDto;
+import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.entity.Course;
 import com.lms.course.repository.CourseEnrollmentRepository;
 import com.lms.course.repository.CourseRepository;
@@ -35,87 +37,20 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService{
     private StudentRepository studentRepository;
     @Autowired
     private TutorRepository tutorRepository;
-
-
-@Override
-@Transactional
-public List<CourseEnrollmentViewDto> courseListStudent(String userId) {
-    Student studentEntity = studentRepository.findById(userId).orElseThrow(() -> new RuntimeException("학생 없음"));
-
-
-    List<CourseEnrollmentViewDto> courseEnrollmentViewDtos = courseEnrollmentRepository.findCourseEnrollmentsByStudent(studentEntity.getSutdentId());
-    /*List<Course> courses = courseEnrollmentRepository.findCoursesByStudent(studentEntity.getStudentId());
-    //los
-
-    return courses.stream()
-        .map(course -> CourseDto.builder()
-            .courseId(course.getCourseId())
-            .title(course.getTitle())
-            .description(course.getDescription())
-            .build()
-        )
-        .toList();*/
-        return courseEnrollmentViewDtos;
-}
-
-
-/* 
-    @Override
-    @Transactional
-    public Long wishlistWrite(WishlistDto wishlistDto) throws Exception {
-        wishlistDto.setWishlistId(null); // 신규 생성이므로 ID를 null로 설정
-        Wishlist wishlistEntity = Wishlist.toEntity(wishlistDto);
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!wishlistDto.getWishlistId    :::: " + wishlistDto.getWishlistId() + " :: " + wishlistDto.getProduct());
-        Wishlist saved = wishlistRepository.save(wishlistEntity);
-        return saved.getWishlistId();
-   
-    }
     
+    @Override
+    @Transactional
+    public List<StudentCourselistDto> findStudentCourselist(String userId) throws Exception {
+        Student studentEntity = studentRepository.findById(userId).orElseThrow(() -> new RuntimeException("학생 없음"));
+        List<StudentCourselistDto> studentCourselistDtos = courseEnrollmentRepository.findCourseEnrollmentsByStudent(studentEntity.getStudentId());
+            return studentCourselistDtos;
+    }
 
     @Override
     @Transactional
-    public List <WishlistDto> wishlistList(User user) throws Exception {
-
-      List <Wishlist> wishlistEntitys= wishlistRepository.findByUser(user);
-      List <WishlistDto> wishlistDtoList = new  ArrayList<WishlistDto>();
-      for (Wishlist wishlist : wishlistEntitys) {
-        wishlistDtoList.add(WishlistDto.toDto(wishlist));
-      }
-      //CartDtoMulti cartDtoMulti = CartDtoMulti.toDtoMulti(carts);
-      return wishlistDtoList;
+    public List<TutorStudentListDto> findStudentsByCourse(Long courseId) {
+        Course courseEntity = courseRepository.findById(courseId.intValue()).orElseThrow(() -> new RuntimeException("강의 없음"));
+        List<TutorStudentListDto> students = courseEnrollmentRepository.findStudentsByCourse(courseEntity.getCourseId());
+        return students;
     }
-
-
-
-
-    @Override
-    @Transactional
-    public int wishlistDeleteWishlistId(Wishlist wishlist) throws Exception {
-        try {
-
-            Wishlist wishlistFromDb = wishlistRepository.findById(wishlist.getWishlistId())
-                                .orElseThrow(() -> new Exception("Wishlist item not found"));
-
-            wishlistRepository.delete(wishlistFromDb);
-          
-            return 1; // 성공
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0; // 실패
-        }
-    }
- 
-    @Override
-    @Transactional
-    public int wishlistDeleteUser(User user) throws Exception {
-        try {
-            wishlistRepository.deleteByUser(user);
-            return 1; // 성공
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0; // 실패
-        }
-    }
-*/   
 }
