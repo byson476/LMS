@@ -60,12 +60,15 @@ Learning Management System (개인 프로젝트)
 6. ERD Diagram 
 
 ### 데이터베이스 (ERD Diagram) 
-1. logical
-![limitree-logical](https://github.com/user-attachments/assets/65939dbd-a96e-4a1b-bbff-80f5c5d8b685)
-2. physical.jpg
-<img width="1214" height="627" alt="limitree-physical" src="https://github.com/user-attachments/assets/54ee9cee-91f8-40e6-b4ad-eed218c80821" />
 
-## 기술 스펙
+<img width="250"alt="lms-erd" src="https://github.com/user-attachments/assets/a1118b2a-2981-4c95-9fda-83cdd442bd85" />
+
+
+## 기술 스펙![Uploading lms-erd.png…]()
+![Uploading lms-erd.png…]()
+![Uploading lms-erd.png…]()
+![Uploading lms-erd.png…]()
+
 
 ### 🔹 Backend (API & Core Service)
 > **비즈니스 로직 / 인증·인가 / 데이터 접근 계층 중심**  
