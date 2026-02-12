@@ -180,7 +180,7 @@ export const useAdminCourseList = (initialValue = []) => {
     } finally {
       setLoading(false);
     }
-  }, [userId]);   // 🔥 반드시 userId 넣어야 함
+  }, [userId]);   // 
 
   useEffect(() => {
     if (userId) {
@@ -227,6 +227,117 @@ export const useAdminDeleteCourse = () => {
     error
   };
 };
+
+//관리자 - 강의 등록
+export const useAdminRegistCourse = (initialValue) => {
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
+
+  const [form, setForm] = useState(initialValue);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // form 값 변경
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // form 초기화
+  const resetForm = () => {
+    setForm(initialValue);
+  };
+
+  // 강의 등록 API 호출
+  const registCourse = async () => {
+    if (!loginUser?.userId) {
+      throw new Error("로그인 정보가 없습니다.");
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const sendJsonObject = {
+        title: form.title,
+        tutorId : form.tutorId,
+        description: form.description,
+        userId: String(loginUser.userId), // 반드시 문자열
+        startDate : form.startDate,
+        totalStudents: Number(form.totalStudents), // DTO가 int라면 숫자로
+      };
+
+      const response = await courseApi.useAdminRegistCourse(sendJsonObject);
+      // resetForm(); // 등록 후 초기화 원하면 주석 해제
+      return response;
+    } catch (e) {
+      setError(e);
+      throw e;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    form,
+    handleChange,
+    resetForm,
+    registCourse,
+    loading,
+    error,
+  };
+};
+
+// 관리자 - 강사 선택
+export const useTutorSeletor = (initialValue = []) => {
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
+  const userId = loginUser?.userId;
+
+  const [tutors, setTutors] = useState(initialValue); // state 이름 tutors로 통일
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const fetchTutorList = useCallback(async () => {
+    if (!userId) return; // 로그인 안되어 있으면 fetch 안함
+
+    try {
+      setLoading(true);
+      setError(false);
+
+      const response = await courseApi.useTutorSeletor(userId); // API 호출
+      console.log("Tutor 목록 API 결과:", response);
+
+      if (response?.status === 2210) { // 성공 코드에 맞게 수정
+        const data = response.data ?? [];
+        const mapped = data.map(tutor => ({
+          id: tutor.tutorId,
+          name: tutor.name,
+        }));
+        setTutors(mapped);
+      } else {
+        setTutors([]);
+      }
+    } catch (e) {
+      console.error("강사 목록 조회 실패", e);
+      setError(true);
+      setTutors([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId]); // userId가 바뀌면 재실행
+
+  useEffect(() => {
+    fetchTutorList();
+  }, [fetchTutorList]);
+
+  return { tutors, loading, error, fetchTutorList }; // 반환 이름 tutors로 통일
+};
+
+
 
 
 export const useCourselist = (initialCourselist = []) => {

@@ -1,5 +1,6 @@
 package com.lms.course.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import com.lms.course.dto.CourseDto;
@@ -37,14 +38,13 @@ public class Course {
 	private Long courseId;
 	private String title;
 	private String description;
+    private Long maxStudents;
+    private Date startdate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tutorid")
     private Tutor tutor;
-/* 
-    @OneToMany(mappedBy = "course")
-    private List<CourseEnrollment> enrollments;
-*/
+
     @OneToMany(
         mappedBy = "course",
         cascade = CascadeType.ALL,
@@ -57,6 +57,8 @@ public class Course {
                 .courseId(courseDto.getCourseId())
                 .title(courseDto.getTitle())
                 .description(courseDto.getDescription())
+                .maxStudents(courseDto.getMaxStudents())
+                .startdate(courseDto.getStartdate())
                 .tutor(courseDto.getTutor())
                 .build();
     }

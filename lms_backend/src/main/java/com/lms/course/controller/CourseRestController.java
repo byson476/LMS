@@ -4,7 +4,8 @@ import java.nio.charset.Charset;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-     
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.course.CourseEnrollmentService;
 import com.lms.course.CourseService;
+import com.lms.course.dto.AdminCourseRegistDto;
 import com.lms.course.dto.AdminCourselistDto;
 import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.StudentCourselistDto;
@@ -130,5 +132,28 @@ public class CourseRestController {
 		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
 		return responseEntity; 
-	}	
+	}
+
+	@Operation(summary = "관리자 - 강좌 등록")
+	@PostMapping(value="/admin_registcourse")
+	@PreAuthorize("hasAnyRole('ROLE_TUTOR', 'ROLE_ADMIN')")
+	public ResponseEntity<Response> registCourse(@RequestBody AdminCourseRegistDto adminCourseRegistDto)throws Exception {
+		if(adminCourseRegistDto==null)
+			throw new AccessDeniedException("접근 권한 없음");
+
+		String userId = adminCourseRegistDto.getUserId();
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@-" + userId + " :: " + adminCourseRegistDto.getStartDate());
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		courseService.registCourse(adminCourseRegistDto);
+		response.setData(null);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity;  
+	}
 }

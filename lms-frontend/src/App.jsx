@@ -24,6 +24,7 @@ import  StudentCourseListPage  from "./page/course/StudentCourseList.jsx";
 import  TutorCourseListPage  from "./page/course/TutorCourseList.jsx";
 import TutorStudentListPage from "./page/course/TutorStudentList.jsx";
 import AdminCourseListPage from "./page/course/AdminCourseList.jsx";
+import AdminCourseRegistPage from "./page/course/AdminCourseRegist.jsx";
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -102,11 +103,16 @@ function App() {
               path="/admin_course_list"
               element= {<AdminCourseListPage />}
             />
+            {/*관리자 - 강의 등록*/}
+            <Route
+              path="/admin_course_regist"
+              element= {<AdminCourseRegistPage />}
+            />
 
-            {/* 🔗 카카오 */}
+            {/*  카카오 */}
             <Route path="/member/kakao" element={<KakaoRedirectPage />} />
 
-            {/* ❌ 404 */}
+            {/*  404 */}
             <Route path="*" element={<UserNonPage />} />
           </Routes>
         </div>

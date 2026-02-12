@@ -1,5 +1,7 @@
 package com.lms.course.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -11,10 +13,12 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminCourselistDto {
-    private Long courseId;
-    private String tutorName;
+public class AdminCourseRegistDto {
+    private String userId;
+    private String tutorId;
     private String title;
     private String description;
-    private Long studentCount;
+    private Long maxStudents;
+    private String startDate;
 }
+

@@ -1,4 +1,5 @@
 import {authHeaders} from "./authHeader";
+import { getCookie } from "../util/cookieUtil";
 
 const BACKEND_SERVER='http://localhost:8080';
 
@@ -45,9 +46,6 @@ export const useAdminCourseList=async(userId)=>{
 
 //관리자 - 강의 삭제
 export const useAdminDeleteCourse = async (userId, courseId) => {
-
-  console.log("오긴해??? ", userId, "------", courseId);
-
   const response = await fetch(
     `${BACKEND_SERVER}/course/admin_deletecourse/${userId}?courseId=${courseId}`,
     {
@@ -56,15 +54,37 @@ export const useAdminDeleteCourse = async (userId, courseId) => {
     }
   );
 
-  console.log("@@@@ status:", response.status);
-  console.log("@@@@ response:", response);
-
   if (!response.ok) {
     throw new Error(`삭제 실패: ${response.status}`);
   }
 
   return await response.json();
 };
+
+//관리자 - 강의 등록
+export const useAdminRegistCourse = async (sendJsonObject)=>{
+  const response1 = await fetch(`${BACKEND_SERVER}/course/admin_registcourse`, {
+    method: "POST",
+headers: {
+  "Content-Type": "application/json",
+  ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
+},
+        body: JSON.stringify(sendJsonObject),
+  });
+  const responseJsonObject = await response1.json();
+  console.log(">>> userApi.userWriteAction()-->response:", responseJsonObject);
+  return responseJsonObject;
+}
+
+export const useTutorSeletor=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/tutor/admin_tutorlist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
+
 
 
 

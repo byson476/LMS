@@ -52,9 +52,7 @@ useEffect(() => {
                         <>
                             <li>학생 메뉴</li>
                             <li><Link to={`/student_course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
-                            <li>과제</li>
-                            <li>시험</li>
-                            <li>공지사항</li>
+                            <li><Link to={`/admin_course_list`}>수강 신청</Link></li>
                             <li><Link to={`/user_view/${loginStatus.loginUser.userId}`}>마이페이지</Link></li>
                             <li>
                                 <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
@@ -66,6 +64,7 @@ useEffect(() => {
                         <>
                         <li>강사 메뉴</li>
                             <li><Link to={`/tutor_course_list/${loginStatus.loginUser.userId}`}>강의 목록</Link></li>
+                            <li><Link to={`/admin_course_regist`}>강의 등록</Link></li>
                             <li><Link to={`/user_view/${loginStatus.loginUser.userId}`}>마이페이지</Link></li>
                             <li>
                                 <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
@@ -76,8 +75,11 @@ useEffect(() => {
                         {loginStatus.loginUser.roleNames?.includes('ADMIN') && (
                         <>
                         <li>관리자 메뉴</li>
+                            <li><Link to={`/admin_course_regist`}>강의 등록</Link></li>
                             <li><Link to={`/admin_course_list`}>강의 목록</Link></li>
+                            <li><Link to={`/admin_course_list`}>수강생/강사 등록</Link></li>
                             <li><Link to={`/admin_course_list`}>수강생 목록</Link></li>
+                            <li><Link to={`/admin_course_list`}>강사 목록</Link></li>
                             <li>
                                 <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
                             </li>
