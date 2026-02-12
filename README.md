@@ -67,10 +67,6 @@ Learning Management System (개인 프로젝트)
 
 
 ## 기술 스펙![Uploading lms-erd.png…]()
-![Uploading lms-erd.png…]()
-![Uploading lms-erd.png…]()
-![Uploading lms-erd.png…]()
-
 
 ### 🔹 Backend (API & Core Service)
 > **비즈니스 로직 / 인증·인가 / 데이터 접근 계층 중심**  
