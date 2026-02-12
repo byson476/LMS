@@ -61,7 +61,9 @@ Learning Management System (개인 프로젝트)
 
 ### 데이터베이스 (ERD Diagram) 
 
-<img width="250"alt="lms-erd" src="https://github.com/user-attachments/assets/a1118b2a-2981-4c95-9fda-83cdd442bd85" />
+<img width="250" alt="lms-erd" src="https://github.com/user-attachments/assets/d2e9a1bd-5625-410a-8852-ac005b487dad" />
+
+
 
 
 ## 기술 스펙![Uploading lms-erd.png…]()
