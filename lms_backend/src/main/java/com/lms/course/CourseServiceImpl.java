@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lms.course.dto.AdminCourselistDto;
 import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
 import com.lms.course.dto.TutorStudentListDto;
@@ -36,4 +37,19 @@ public class CourseServiceImpl implements CourseService{
         return courses;
     }
 
+    @Override
+    @Transactional
+    public List<AdminCourselistDto> findAdminCourselist() throws Exception {
+        List<AdminCourselistDto> courses = courseRepository.findAdminCourseList();
+        return courses;
+    }
+
+   //관리자 - 강좌 한개 삭제
+    @Override
+    @Transactional
+    public void deleteCourse(Long courseId) throws Exception {
+        Course courserEntity = courseRepository.findById(courseId.intValue()).orElseThrow(() -> new RuntimeException("강좌 없음"));
+        courseRepository.deleteById(courserEntity.getCourseId().intValue());
+    }
+    
 }

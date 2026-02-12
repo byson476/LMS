@@ -2,6 +2,7 @@ package com.lms.course.controller;
 
 import java.nio.charset.Charset;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
      
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.course.CourseEnrollmentService;
 import com.lms.course.CourseService;
+import com.lms.course.dto.AdminCourselistDto;
 import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.StudentCourselistDto;
 import com.lms.course.dto.CourseWithStudentCountDto;
@@ -71,6 +73,7 @@ public class CourseRestController {
 
 		return SecurityContextHolder.getContext();
 	}
+
 	@Operation(summary = "강사 - 개설 강좌 목록 보기")
 	@SecurityRequirement(name = "BearerAuth")
 	@GetMapping("tutor_courselist/{userId}")
@@ -89,4 +92,43 @@ public class CourseRestController {
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
 		return responseEntity;
 	}
+
+	
+	@Operation(summary = "관리자 - 전체 강좌 목록 보기")
+	@SecurityRequirement(name = "BearerAuth")
+	@GetMapping("admin_courselist/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public ResponseEntity<Response> findAdminCourselist(@PathVariable("userId") String userId)throws Exception {
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		List <AdminCourselistDto> courseWithStudentCountDtoList = courseService.findAdminCourselist();
+		response.setData(courseWithStudentCountDtoList);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity;
+	}
+
+	@Operation(summary = "관리자 - 강좌 한개 삭제")
+	@SecurityRequirement(name = "BearerAuth")
+	@DeleteMapping(value = "/admin_deletecourse/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public ResponseEntity<Response> deleteCourse(@PathVariable("userId") String userId, @RequestParam("courseId") String courseId)throws Exception {
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		courseService.deleteCourse(Long.parseLong(courseId));
+		response.setData(null);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity; 
+	}	
 }

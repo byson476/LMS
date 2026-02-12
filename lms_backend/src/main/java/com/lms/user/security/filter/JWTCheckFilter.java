@@ -42,6 +42,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         path.startsWith("/v3/api-docs") ||
         path.startsWith("/swagger-ui") ||
         path.startsWith("/api-docs") ||
+        path.startsWith("/admin_deletecourse") ||
         path.startsWith("/error")) {
       return true;
     }

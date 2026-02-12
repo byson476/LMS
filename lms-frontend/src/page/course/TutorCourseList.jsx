@@ -5,7 +5,6 @@ import { UserContext } from "../../App";
 import "../../assets/css/course_tutor.css";
 
 export const TutorCourseList = () => {
-
   const { loginStatus } = useContext(UserContext);
   const { courseListItems } = useTutorCourselist([]);
 

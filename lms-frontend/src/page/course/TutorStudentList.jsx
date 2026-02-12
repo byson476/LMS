@@ -7,7 +7,6 @@ import "../../assets/css/course_tutor.css";
 
 const TutorStudentList = () => {
   const { loginStatus } = useContext(UserContext);
-  console.log(useParams());
   const { courseId } = useParams();   // 문자열
   const courseIdNumber = Number(courseId); // 숫자로 변환
 

@@ -58,7 +58,7 @@ public class CustomSecurityConfig {
 
     http.authorizeHttpRequests((authorize) -> {
       authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-          .requestMatchers("/user/login", "/user/context", "/api/member/**", "/error").permitAll()
+          .requestMatchers("/user/login", "/user/context", "/api/member/**", "/error", "/admin_deletecourse").permitAll()
           // 회원가입 POST 허용
           .requestMatchers(HttpMethod.POST, "/user").permitAll()
           .anyRequest().authenticated();

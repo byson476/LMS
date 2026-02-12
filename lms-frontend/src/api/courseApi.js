@@ -32,6 +32,42 @@ export const useTutorStudentlist=async(userId, courseId)=>{
 	return await response.json();
 }
 
+//관리자 - 강의 목록
+export const useAdminCourseList=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/course/admin_courselist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
+
+
+//관리자 - 강의 삭제
+export const useAdminDeleteCourse = async (userId, courseId) => {
+
+  console.log("오긴해??? ", userId, "------", courseId);
+
+  const response = await fetch(
+    `${BACKEND_SERVER}/course/admin_deletecourse/${userId}?courseId=${courseId}`,
+    {
+      method: "DELETE",
+      headers: authHeaders(),
+    }
+  );
+
+  console.log("@@@@ status:", response.status);
+  console.log("@@@@ response:", response);
+
+  if (!response.ok) {
+    throw new Error(`삭제 실패: ${response.status}`);
+  }
+
+  return await response.json();
+};
+
+
+
 export const studentList=async(userId)=>{
 	const response= await fetch(`${BACKEND_SERVER}/courses/student/${userId}`,
     {

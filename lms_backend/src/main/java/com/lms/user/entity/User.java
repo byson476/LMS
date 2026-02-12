@@ -52,13 +52,13 @@ public class User {
 	private List<UserRole> roles = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user" )
-	private List<Student> students = new ArrayList<Student>();
+	private final List<Student> students = new ArrayList<Student>();
 
 	@OneToMany(mappedBy = "user" )
-	private List<Tutor> tutors = new ArrayList<Tutor>();
+	private final List<Tutor> tutors = new ArrayList<Tutor>();
 
 	@OneToMany(mappedBy = "user" )
-	private List<Admin> admins = new ArrayList<Admin>();
+	private final List<Admin> admins = new ArrayList<Admin>();
 	
 	public void addRole(UserRole userRole) {
 		roles.add(userRole);

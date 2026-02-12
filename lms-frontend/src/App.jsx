@@ -23,6 +23,7 @@ import KakaoRedirectPage from "./page/user/KakaoRedirectPage";
 import  StudentCourseListPage  from "./page/course/StudentCourseList.jsx";
 import  TutorCourseListPage  from "./page/course/TutorCourseList.jsx";
 import TutorStudentListPage from "./page/course/TutorStudentList.jsx";
+import AdminCourseListPage from "./page/course/AdminCourseList.jsx";
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -95,6 +96,11 @@ function App() {
             <Route
               path="/tutor_student_list/:courseId"
               element= {<TutorStudentListPage />}
+            />
+            {/*관리자 - 강의 목록*/}
+            <Route
+              path="/admin_course_list"
+              element= {<AdminCourseListPage />}
             />
 
             {/* 🔗 카카오 */}

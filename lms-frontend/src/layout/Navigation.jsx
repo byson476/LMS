@@ -74,7 +74,14 @@ useEffect(() => {
                         )}
 
                         {loginStatus.loginUser.roleNames?.includes('ADMIN') && (
+                        <>
                         <li>관리자 메뉴</li>
+                            <li><Link to={`/admin_course_list`}>강의 목록</Link></li>
+                            <li><Link to={`/admin_course_list`}>수강생 목록</Link></li>
+                            <li>
+                                <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
+                            </li>
+                        </>
                         )}
 
                         {/*로그인후 end */}

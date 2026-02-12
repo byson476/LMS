@@ -39,7 +39,7 @@ public class Tutor {
 	private User user;
 
     @OneToMany(mappedBy = "tutor")
-    private List<Course> courses = new ArrayList<>();
+    private final List<Course> courses = new ArrayList<>();
     
     public static Tutor toEntity(TutorDto tutorDto) {
         return Tutor.builder()
