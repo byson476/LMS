@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.user.UserService;
+import com.lms.user.dto.AdminAllUserRegistDto;
 import com.lms.user.dto.UserDto;
 import com.lms.user.exception.ExistedUserException;
 import com.lms.user.security.SecurityUser;
@@ -59,6 +60,45 @@ public class UserRestController {
 			throws ExistedUserException, Exception {
 
 		return SecurityContextHolder.getContext();
+	}
+
+
+	@Operation(summary = "관리자 - 학생/강사/관리자 회원가입")
+	@SecurityRequirement(name = "BearerAuth")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')") // 권한 설정
+	@PostMapping("/admin_user_regist")
+	public ResponseEntity<Response> all_user_regist_action(@RequestBody AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception {
+		System.out.println(">>>>>>>>요기@@@@@@" + adminAllUserRegistDto);
+		if(adminAllUserRegistDto==null) 
+			throw new AccessDeniedException("접근 권한 없음");
+
+		switch (adminAllUserRegistDto.getRole()) {
+			case "STUDENT":
+				System.out.println("STUDENT");
+				userService.registStudentUser(adminAllUserRegistDto);
+				break;
+			case "TUTOR":
+				System.out.println("TUTOR");
+				userService.registTutorUser(adminAllUserRegistDto);
+				break;
+			case "ADMIN":
+				System.out.println("ADMIN");
+				userService.registAdminUser(adminAllUserRegistDto);
+				break;
+		
+			default:
+				break;
+		}
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.CREATED_USER);
+		response.setMessage(ResponseMessage.CREATED_USER);
+		response.setData(null);
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.CREATED);
+		return responseEntity;
 	}
 
 	@Operation(summary = "회원가입")
@@ -217,4 +257,5 @@ public class UserRestController {
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
 		return responseEntity;
 	}
+
 }

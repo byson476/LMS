@@ -1,7 +1,62 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback  } from 'react';
 import * as userApi from '../api/userApi';
 import * as responseStatusCode from '../api/ResponseStatusCode';
 import { getCookie, setCookie, removeCookie } from '../util/cookieUtil';
+
+export const useAlluserRegist = () => {
+  const [formData, setFormData] = useState({
+    userId: "",
+    password: "",
+    name: "",
+    email: "",
+    role: "STUDENT",
+    social: false,
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleChange = useCallback((e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  }, []);
+
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      console.log("회원가입 요청 데이터:", formData);
+
+      // 🔥 실제 API 연결 시
+       const response = await userApi.useAlluserRegist(formData);
+       console.log(response);
+
+      alert("회원가입 요청 완료");
+
+    } catch (err) {
+      console.error("회원가입 실패", err);
+      setError("회원가입 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  }, [formData]);
+
+  return {
+    formData,
+    loading,
+    error,
+    handleChange,
+    handleSubmit,
+  };
+};
+
 
 
 export const useUser = () => {
@@ -28,6 +83,8 @@ export const useUser = () => {
   setLoginUser(memberData);
   setIsLogin(true);
 };
+
+
   /**
    * 로그인
    */

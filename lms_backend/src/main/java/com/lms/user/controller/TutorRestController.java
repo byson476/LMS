@@ -72,10 +72,8 @@ public class TutorRestController {
 		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
 			throw new AccessDeniedException("접근 권한 없음");
 		}
-		System.out.println("오긴오냐????????????");
  
 		List<AdminTutorSelectListDto> adminTutorSelectListDto = tutorService.findAminTutorlist();
-		System.out.println("아놔~~~~~~~~~~~~~~~~~~~~" + adminTutorSelectListDto);
 		Response response = new Response();
 		response.setStatus(ResponseStatusCode.READ_USERS);
 		response.setMessage(ResponseMessage.READ_USERS);

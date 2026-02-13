@@ -1,7 +1,26 @@
 import { getCookie, removeCookie } from "../util/cookieUtil";
 import * as ResponseStatusCode from "../api/ResponseStatusCode";
 import * as ResponseMessage from "../api/ResponseMessage";
+import {authHeaders} from "./authHeader";
+
 export const BACKEND_SERVER = "http://localhost:8080";
+
+
+//관리자 - 학생/강사/관리자 등록
+export const useAlluserRegist = async (sendJsonObject) => {
+  const response = await fetch(`${BACKEND_SERVER}/user/admin_user_regist`, {
+    method: "POST",
+headers: {
+  "Content-Type": "application/json",
+  ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
+},
+    body: JSON.stringify(sendJsonObject),
+  });
+  const responseJsonObject = await response.json();
+  console.log(">>> userApi.userWriteAction()-->response:", responseJsonObject);
+  return responseJsonObject;
+};
+
 
 export const userWriteAction = async (sendJsonObject) => {
   const response = await fetch(`${BACKEND_SERVER}/user`, {

@@ -94,3 +94,30 @@
 .submit-btn:hover {
   background: #4b50d6;
 }
+
+/* 역할 선택 영역 */
+.role-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.role-select-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  line-height: 1; /* 텍스트 아래 밀림 방지 */
+}
+
+/* 라디오 버튼 크기 조절 */
+.role-select-group input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  margin: 0 8px 0 0;
+  transform: scale(1); /* 브라우저 확대 방지 */
+}
+

@@ -1,6 +1,7 @@
 package com.lms.user;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +19,21 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.lms.user.dto.AdminAllUserRegistDto;
 import com.lms.user.dto.UserDto;
+import com.lms.user.entity.Admin;
+import com.lms.user.entity.Student;
+import com.lms.user.entity.Tutor;
 import com.lms.user.entity.User;
 import com.lms.user.entity.UserRole;
 import com.lms.user.exception.ExistedUserException;
 import com.lms.user.exception.PasswordMismatchException;
+import com.lms.user.repository.AdminRepository;
+import com.lms.user.repository.StudentRepository;
+import com.lms.user.repository.TutorRepository;
 import com.lms.user.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
 @Service
@@ -34,9 +43,85 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	public PasswordEncoder passwordEncoder;
-	/********************************************* */
+
+	@Autowired
+	StudentRepository studentRepository;
+	@Autowired
+	TutorRepository tutorRepository;
+	@Autowired
+	AdminRepository adminRepository;
+	/**
+	 * ******************************************* */
 	@Autowired
 	private ModelMapper modelMapper;
+
+	//관리자 - 학생 회원가입
+	@Override
+	@Transactional
+	public void registStudentUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception {
+		User user1 = User.builder()
+				.userId(adminAllUserRegistDto.getUserId())
+				.name(adminAllUserRegistDto.getName())
+				.email(adminAllUserRegistDto.getEmail())
+				.password(passwordEncoder.encode(adminAllUserRegistDto.getPassword())).social(false)
+				.build();
+		user1.addRole(UserRole.STUDENT);
+		userRepository.save(user1);
+	
+		Student student1 = Student.builder()
+		.studentId(user1.getUserId())
+		.grade(1)
+		.creatDate(java.sql.Date.valueOf(LocalDate.now()))
+		.user(user1)
+		.build();
+		studentRepository.save(student1);
+	}
+
+	//관리자 - 강사 회원가입
+	@Override
+	@Transactional
+	public void registTutorUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception {
+		User user1 = User.builder()
+				.userId(adminAllUserRegistDto.getUserId())
+				.name(adminAllUserRegistDto.getName())
+				.email(adminAllUserRegistDto.getEmail())
+				.password(passwordEncoder.encode(adminAllUserRegistDto.getPassword())).social(false)
+				.build();
+		user1.addRole(UserRole.STUDENT);
+		userRepository.save(user1);
+	
+		Tutor tutor1 = Tutor.builder()
+				.tutorId(user1.getUserId())
+				.major("JAVA")
+				.hiredDate(java.sql.Date.valueOf(LocalDate.now()))
+				.user(user1)
+				.build();
+		tutorRepository.save(tutor1);
+	}
+
+
+	//관리자 - 관리자 회원가입
+	@Override
+	@Transactional
+	public void registAdminUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception {
+		User user1 = User.builder()
+				.userId(adminAllUserRegistDto.getUserId())
+				.name(adminAllUserRegistDto.getName())
+				.email(adminAllUserRegistDto.getEmail())
+				.password(passwordEncoder.encode(adminAllUserRegistDto.getPassword())).social(false)
+				.build();
+		user1.addRole(UserRole.STUDENT);
+		userRepository.save(user1);
+	
+		Admin admin1 = Admin.builder()
+				.adminId(user1.getUserId())
+				.levels(1)
+				.user(user1)
+				.build();
+		adminRepository.save(admin1);
+	}
+
+
 
 	public void modelMapperUse(){
 		UserDto userDto=new UserDto();
@@ -258,4 +343,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return buffer.toString();
 	}
+
 }

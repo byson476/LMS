@@ -134,7 +134,7 @@ public class CourseRestController {
 		return responseEntity; 
 	}
 
-	@Operation(summary = "관리자 - 강좌 등록")
+	@Operation(summary = "관리자/강사 - 강좌 등록")
 	@PostMapping(value="/admin_registcourse")
 	@PreAuthorize("hasAnyRole('ROLE_TUTOR', 'ROLE_ADMIN')")
 	public ResponseEntity<Response> registCourse(@RequestBody AdminCourseRegistDto adminCourseRegistDto)throws Exception {
@@ -145,7 +145,6 @@ public class CourseRestController {
 		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
 			throw new AccessDeniedException("접근 권한 없음");
 		}
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@-" + userId + " :: " + adminCourseRegistDto.getStartDate());
 		Response response = new Response();
 		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
 		response.setMessage(ResponseMessage.COURSE_SUCCESS);

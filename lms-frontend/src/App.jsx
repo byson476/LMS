@@ -25,6 +25,8 @@ import  TutorCourseListPage  from "./page/course/TutorCourseList.jsx";
 import TutorStudentListPage from "./page/course/TutorStudentList.jsx";
 import AdminCourseListPage from "./page/course/AdminCourseList.jsx";
 import AdminCourseRegistPage from "./page/course/AdminCourseRegist.jsx";
+import TutorCourseRegistPage from "./page/course/TutorCourseRegist.jsx";
+import AllUserRegisterPage from "./page/user/AllUserRegisterPage.jsx";
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -88,6 +90,11 @@ function App() {
               path="/tutor_course_list/:userId"
               element={loginStatus.isLogin ? <TutorCourseListPage /> : <LoginPage />}
             />
+            {/*강사 - 강의 등록*/}
+            <Route
+              path="/tutor_course_regist"
+              element={loginStatus.isLogin ? <TutorCourseRegistPage /> : <LoginPage />}
+            />
             {/*
             <Route
               path="/tutor_student_list/:courseId"
@@ -108,6 +115,12 @@ function App() {
               path="/admin_course_regist"
               element= {<AdminCourseRegistPage />}
             />
+            {/*관리자 - 회원(학생/강사/관리자) 등록*/}
+            <Route
+              path="/all_user_regist"
+              element={loginStatus.isLogin ? <AllUserRegisterPage /> : <LoginPage />}
+            />
+
 
             {/*  카카오 */}
             <Route path="/member/kakao" element={<KakaoRedirectPage />} />

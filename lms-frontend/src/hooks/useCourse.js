@@ -338,7 +338,68 @@ export const useTutorSeletor = (initialValue = []) => {
 };
 
 
+//강사 - 강의 등록
+export const useTutorRegistCourse = (initialValue) => {
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
 
+  const [form, setForm] = useState(initialValue);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // form 값 변경
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // form 초기화
+  const resetForm = () => {
+    setForm(initialValue);
+  };
+
+  // 강의 등록 API 호출
+  const registCourse = async () => {
+    if (!loginUser?.userId) {
+      throw new Error("로그인 정보가 없습니다.");
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const sendJsonObject = {
+        title: form.title,
+        description: form.description,
+        userId: String(loginUser.userId), 
+        tutorId: String(loginUser.userId), 
+        startDate : form.startDate,
+        totalStudents: Number(form.totalStudents), // DTO가 int라면 숫자로
+      };
+
+      const response = await courseApi.useAdminRegistCourse(sendJsonObject);
+      // resetForm(); // 등록 후 초기화 원하면 주석 해제
+      return response;
+    } catch (e) {
+      setError(e);
+      throw e;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    form,
+    handleChange,
+    resetForm,
+    registCourse,
+    loading,
+    error,
+  };
+};
 
 export const useCourselist = (initialCourselist = []) => {
   const { loginStatus } = useContext(UserContext);

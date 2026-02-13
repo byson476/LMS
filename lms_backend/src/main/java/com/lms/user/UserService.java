@@ -2,6 +2,7 @@ package com.lms.user;
 
 import java.util.List;
 
+import com.lms.user.dto.AdminAllUserRegistDto;
 import com.lms.user.dto.UserDto;
 import com.lms.user.exception.ExistedUserException;
 
@@ -9,6 +10,14 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 public interface UserService {
+	//관리자 - 학생 회원가입
+	void registStudentUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception;
+	//관리자 - 강사 회원가입
+	void registTutorUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception;
+	//관리자 - 관리자 회원가입
+	void registAdminUser(AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception;
+
+
 	/*
 	 * Kakao
 	 */

@@ -76,6 +76,7 @@ headers: {
   return responseJsonObject;
 }
 
+//관리자 - 강의 등록 - 강사검색
 export const useTutorSeletor=async(userId)=>{
 	const response= await fetch(`${BACKEND_SERVER}/tutor/admin_tutorlist/${userId}`,
     {
@@ -84,8 +85,6 @@ export const useTutorSeletor=async(userId)=>{
     });
 	return await response.json();
 }
-
-
 
 
 export const studentList=async(userId)=>{
