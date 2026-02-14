@@ -68,7 +68,6 @@ public class UserRestController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')") // 권한 설정
 	@PostMapping("/admin_user_regist")
 	public ResponseEntity<Response> all_user_regist_action(@RequestBody AdminAllUserRegistDto adminAllUserRegistDto) throws ExistedUserException, Exception {
-		System.out.println(">>>>>>>>요기@@@@@@" + adminAllUserRegistDto);
 		if(adminAllUserRegistDto==null) 
 			throw new AccessDeniedException("접근 권한 없음");
 
