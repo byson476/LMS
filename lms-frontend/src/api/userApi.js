@@ -5,15 +5,41 @@ import {authHeaders} from "./authHeader";
 
 export const BACKEND_SERVER = "http://localhost:8080";
 
+//관리자 - 학생 목록
+export const useAdminStudentlist=async(userId)=>{
+  const response= await fetch(`${BACKEND_SERVER}/student/admin_studentlist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+  return await response.json();
+}
+//관리자 - 수강생 삭제
+export const useAdminDeleteStudent = async (userId, studentId) => {
+  console.log("조경진----");
+  const response = await fetch(
+    `${BACKEND_SERVER}/student/admin_deletestudent/${userId}?studentId=${studentId}`,
+    {
+      method: "DELETE",
+      headers: authHeaders(),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`삭제 실패: ${response.status}`);
+  }
+
+  return await response.json();
+};
 
 //관리자 - 학생/강사/관리자 등록
 export const useAlluserRegist = async (sendJsonObject) => {
   const response = await fetch(`${BACKEND_SERVER}/user/admin_user_regist`, {
     method: "POST",
-headers: {
-  "Content-Type": "application/json",
-  ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
-},
+    headers: {
+      "Content-Type": "application/json",
+      ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
+    },
     body: JSON.stringify(sendJsonObject),
   });
   const responseJsonObject = await response.json();

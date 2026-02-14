@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.lms.course.dto.StudentCourselistDto;
 import com.lms.course.dto.TutorStudentListDto;
+import com.lms.course.dto.AdminStudentCourseListDto;
 import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.entity.QCourse;
 import com.lms.course.entity.QCourseEnrollment;
@@ -75,4 +76,30 @@ private final QUser user = QUser.user;   // ⚠ userinfo 엔티티 기준
         .fetch();
 
         }
+
+        
+    //관리자 - 수강생 목록>>수강생의 수강 내역
+    @Override
+    public List<AdminStudentCourseListDto> findAdminStudentCourse(String studentId) {
+    QCourseEnrollment ce = QCourseEnrollment.courseEnrollment;
+    QCourse c = QCourse.course;
+    QTutor t = QTutor.tutor;
+    QUser u = QUser.user;
+
+    return queryFactory
+            .select(Projections.constructor(
+                    AdminStudentCourseListDto.class,
+                    c.courseId,
+                    ce.enrolledDate,
+                    c.title,
+                    c.description,
+                    u.name
+            ))
+            .from(ce)
+            .join(ce.course, c)
+            .join(c.tutor, t)
+            .join(t.user, u)
+            .where(ce.student.user.userId.eq(studentId))
+            .fetch();
+    }
 }

@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 				.email(adminAllUserRegistDto.getEmail())
 				.password(passwordEncoder.encode(adminAllUserRegistDto.getPassword())).social(false)
 				.build();
-		user1.addRole(UserRole.STUDENT);
+		user1.addRole(UserRole.TUTOR);
 		userRepository.save(user1);
 	
 		Tutor tutor1 = Tutor.builder()
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
 				.email(adminAllUserRegistDto.getEmail())
 				.password(passwordEncoder.encode(adminAllUserRegistDto.getPassword())).social(false)
 				.build();
-		user1.addRole(UserRole.STUDENT);
+		user1.addRole(UserRole.ADMIN);
 		userRepository.save(user1);
 	
 		Admin admin1 = Admin.builder()

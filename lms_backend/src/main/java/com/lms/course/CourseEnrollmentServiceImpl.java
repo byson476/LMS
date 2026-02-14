@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.lms.course.dto.AdminStudentCourseListDto;
 import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.StudentCourselistDto;
 import com.lms.course.dto.TutorStudentListDto;
@@ -52,5 +53,14 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService{
         Course courseEntity = courseRepository.findById(courseId.intValue()).orElseThrow(() -> new RuntimeException("강의 없음"));
         List<TutorStudentListDto> students = courseEnrollmentRepository.findStudentsByCourse(courseEntity.getCourseId());
         return students;
+    }
+
+    // 관리자 - 수강생 목록>>수강생의 수강 내역
+    @Override
+    @Transactional
+    public List<AdminStudentCourseListDto> findAdminStudentCourse(String studentId) throws Exception {
+        Student studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("학생 없음"));
+        List<AdminStudentCourseListDto> studentCourseList = courseEnrollmentRepository.findAdminStudentCourse(studentEntity.getStudentId());
+            return studentCourseList;        
     }
 }

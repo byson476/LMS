@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from 'react';
+import { useEffect, useState, useCallback, useContext, useRef  } from 'react';
 import { useUserContext } from '../context/UserContext';
 import { UserContext } from "../App";
 import * as courseApi from '../api/courseApi';
@@ -46,6 +46,94 @@ export const useStudentCourselist = (initialCourselist = []) => {
 
   return { courseListItems};
 };
+
+//학생 - 수강 신청
+export const useStudentCourseRegist = () => {
+
+  const [courses, setCourses] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const allCheckRef = useRef(null);
+
+  // 🔥 강의 목록 조회
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      setLoading(true);
+      const res = await courseApi.getCourseList();
+
+      // 배열 안전 처리
+      setCourses(Array.isArray(res.data) ? res.data : []);
+    } catch (e) {
+      console.error("강의 목록 조회 실패:", e);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔥 개별 체크
+  const handleCheckboxChange = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  // 🔥 전체 선택
+  const handleAllCheck = () => {
+    if (selectedIds.length === courses.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(courses.map((c) => c.courseId));
+    }
+  };
+
+  const isAllChecked =
+    courses.length > 0 &&
+    selectedIds.length === courses.length;
+
+  // 🔥 강의 신청
+  const handleApplyCourses = async () => {
+    if (selectedIds.length === 0) return;
+
+    try {
+      await Promise.all(
+        selectedIds.map((id) =>
+          courseApi.applyCourse(id)
+        )
+      );
+
+      alert("강의 신청이 완료되었습니다.");
+      setSelectedIds([]);
+      fetchCourses(); // 신청 후 새로고침
+    } catch (e) {
+      console.error("강의 신청 실패:", e);
+      alert("강의 신청 중 오류가 발생했습니다.");
+    }
+  };
+
+  return {
+    courses,
+    loading,
+    error,
+    selectedIds,
+    handleCheckboxChange,
+    handleAllCheck,
+    isAllChecked,
+    handleApplyCourses,
+    allCheckRef,
+  };
+};
+
+
+
 
 //강사 - 개설 강의 목록
 export const useTutorCourselist = (initialCourselist = []) => {
@@ -400,6 +488,83 @@ export const useTutorRegistCourse = (initialValue) => {
     error,
   };
 };
+
+//관리자 - 수강생 목록>>수강생의 수강 내역
+export const useAdminStudentCourseList = (studentId) => {
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
+  const userId = loginUser?.userId;
+
+  const [courses, setCourses] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const allCheckRef = useRef();
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const res = await courseApi.getAdminStudentCourseList(userId, studentId);
+      setCourses(Array.isArray(res.data) ? res.data : []);
+    } catch (e) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCheck = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  const handleAllCheck = () => {
+    if (selectedIds.length === courses.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(courses.map((c) => c.courseId));
+    }
+  };
+
+  const isAllChecked =
+    courses.length > 0 &&
+    selectedIds.length === courses.length;
+
+  const deleteCourses = async () => {
+    await Promise.all(
+      selectedIds.map((courseId) =>
+        courseApi.useAdminDeleteCourse(userId, courseId)
+      )
+    );
+
+    fetchCourses();
+    setSelectedIds([]);
+  };
+
+  return {
+    courses,
+    loading,
+    error,
+    selectedIds,
+    handleCheck,
+    handleAllCheck,
+    isAllChecked,
+    allCheckRef,
+    deleteCourses,
+  };
+};
+
+
+
+
+
+
 
 export const useCourselist = (initialCourselist = []) => {
   const { loginStatus } = useContext(UserContext);

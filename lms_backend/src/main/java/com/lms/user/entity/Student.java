@@ -6,6 +6,7 @@ import java.util.List;
 import com.lms.course.entity.CourseEnrollment;
 import com.lms.user.dto.StudentDto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,7 +38,9 @@ public class Student {
 	@JoinColumn(name = "userid")
 	private User user;
 
-    @OneToMany(mappedBy = "student")
+ @OneToMany(mappedBy = "student",
+           cascade = CascadeType.ALL,
+           orphanRemoval = true)
     private List<CourseEnrollment> enrollments;
 
     public static Student toEntity(StudentDto studentDto) {

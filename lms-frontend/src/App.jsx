@@ -21,12 +21,15 @@ import { UserNonPage } from "./page/user/UserNonePage";
 import KakaoRedirectPage from "./page/user/KakaoRedirectPage";
 
 import  StudentCourseListPage  from "./page/course/StudentCourseList.jsx";
+import StudentCourseRegist from "./page/course/StudentCourseRegist.jsx"
 import  TutorCourseListPage  from "./page/course/TutorCourseList.jsx";
 import TutorStudentListPage from "./page/course/TutorStudentList.jsx";
 import AdminCourseListPage from "./page/course/AdminCourseList.jsx";
 import AdminCourseRegistPage from "./page/course/AdminCourseRegist.jsx";
 import TutorCourseRegistPage from "./page/course/TutorCourseRegist.jsx";
 import AllUserRegisterPage from "./page/user/AllUserRegisterPage.jsx";
+import AdminStudentlist from "./page/user/AdminStudentlist.jsx";
+import AdminStudentCourseList from "./page/course/AdminStudentCourseList.jsx"
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -85,6 +88,15 @@ function App() {
               path="/student_course_list/:userId"
               element={loginStatus.isLogin ? <StudentCourseListPage /> : <LoginPage />}
             />
+
+
+            {/*학생 - 수강 신청*/}
+            <Route
+              path="/student_course_regist"
+              element={loginStatus.isLogin ? <StudentCourseRegist /> : <LoginPage />}
+            />
+
+            
             {/*강사 - 강의 목록*/}
             <Route
               path="/tutor_course_list/:userId"
@@ -120,7 +132,16 @@ function App() {
               path="/all_user_regist"
               element={loginStatus.isLogin ? <AllUserRegisterPage /> : <LoginPage />}
             />
-
+            {/*관리자 - 수강생 목록*/}
+            <Route
+              path="admin_student_list"
+              element={loginStatus.isLogin ? <AdminStudentlist /> : <LoginPage />}
+            />
+            {/*관리자 - 수강생 목록 / 수강생의 수강 내역*/}
+            <Route
+              path="/student_courseslist/:studentId"
+              element={loginStatus.isLogin ? <AdminStudentCourseList /> : <LoginPage />}
+            />
 
             {/*  카카오 */}
             <Route path="/member/kakao" element={<KakaoRedirectPage />} />

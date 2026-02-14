@@ -1,8 +1,140 @@
-import { useEffect, useState, useCallback  } from 'react';
+import { useEffect, useState, useCallback, useRef , useContext } from 'react';
 import * as userApi from '../api/userApi';
 import * as responseStatusCode from '../api/ResponseStatusCode';
 import { getCookie, setCookie, removeCookie } from '../util/cookieUtil';
+import { UserContext } from "../App";
 
+//관리자 - 학생 목록 화면
+export function useAdminStudentlist() {
+
+  /* =============================
+     상태
+  ============================== */
+  const [students, setStudents] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const allCheckRef = useRef(null);
+
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
+  const userId = loginUser?.userId;
+
+  /* =============================
+     🔥 학생 목록 조회 API
+  ============================== */
+  const fetchStudents = async () => {
+    try {
+      setLoading(true);
+      const response = await userApi.useAdminStudentlist(userId);
+      const result = response.data;
+      setStudents(Array.isArray(result) ? result : result.data || []);
+      //setStudents(response.data);
+    } catch (err) {
+      console.error(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* 최초 로딩 */
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  /* =============================
+     개별 선택
+  ============================== */
+  const handleCheck = (studentId) => {
+    setSelectedIds((prev) =>
+      prev.includes(studentId)
+        ? prev.filter((id) => id !== studentId)
+        : [...prev, studentId]
+    );
+  };
+
+  /* =============================
+     전체 선택
+  ============================== */
+  const handleAllCheck = (e) => {
+    if (e.target.checked) {
+      setSelectedIds(students.map((s) => s.studentId));
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
+  /* =============================
+     전체 선택 여부
+  ============================== */
+  const isAllChecked =
+    students.length > 0 &&
+    selectedIds.length === students.length;
+
+  /* =============================
+     indeterminate 처리
+  ============================== */
+  useEffect(() => {
+    if (allCheckRef.current) {
+      allCheckRef.current.indeterminate =
+        selectedIds.length > 0 &&
+        selectedIds.length < students.length;
+    }
+  }, [selectedIds, students.length]);
+
+  /* =============================
+     🔥 학생 삭제 API
+  ============================== */
+  const deleteStudents = async () => {
+    if (selectedIds.length === 0) return;
+
+    try {
+      for (const studentId of selectedIds) {
+        await userApi.useAdminDeleteStudent(userId, studentId);
+      }
+
+      // 화면에서 제거 (optimistic update)
+      setStudents((prev) =>
+        prev.filter((student) =>
+          !selectedIds.includes(student.studentId)
+        )
+      );
+
+      setSelectedIds([]); // 선택 초기화
+    } catch (err) {
+      console.error(err);
+      alert("삭제 실패");
+    }
+  };
+
+  /* =============================
+     외부에서 새로고침 가능
+  ============================== */
+  const reload = () => {
+    fetchStudents();
+  };
+
+  return {
+    students,
+    loading,
+    error,
+
+    selectedIds,
+    handleCheck,
+    handleAllCheck,
+    isAllChecked,
+    allCheckRef,
+
+    deleteStudents,
+    reload,
+  };
+}
+
+
+
+//관리자 - 학생/강사/관리자 등록 화면
 export const useAlluserRegist = () => {
   const [formData, setFormData] = useState({
     userId: "",

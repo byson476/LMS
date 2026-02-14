@@ -13,41 +13,26 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lms.course.CourseEnrollmentService;
 import com.lms.course.CourseService;
 import com.lms.course.dto.AdminCourseRegistDto;
 import com.lms.course.dto.AdminCourselistDto;
-import com.lms.course.dto.CourseDto;
-import com.lms.course.dto.StudentCourselistDto;
-import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
-import com.lms.course.dto.StudentListForCourseTutorDto;
-import com.lms.user.UserService;
 import com.lms.user.controller.Response;
-import com.lms.course.controller.ResponseMessage;
-import com.lms.course.controller.ResponseStatusCode;
-import com.lms.user.dto.UserDto;
-import com.lms.user.entity.Tutor;
 import com.lms.user.exception.ExistedUserException;
-import com.lms.user.security.SecurityUser;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.servlet.http.HttpSession;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;;
 
 /*
 POST 	/user/login 		- create  user 

@@ -86,6 +86,15 @@ export const useTutorSeletor=async(userId)=>{
 	return await response.json();
 }
 
+//관리자 - 수강생 목록>>수강생의 수강 내역
+export const getAdminStudentCourseList=async(userId, studentId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/coursee/admin_courselist/${userId}?studentId=${studentId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
 
 export const studentList=async(userId)=>{
 	const response= await fetch(`${BACKEND_SERVER}/courses/student/${userId}`,
@@ -98,39 +107,3 @@ export const studentList=async(userId)=>{
 
 
 
-//wishlist 저장
-export const wishlisttWriteAction = async (sendJsonObject)=>{
-    const response= await fetch(`${BACKEND_SERVER}/wishlist`,{
-        method:'POST',
-        headers: authHeaders({
-            'Content-type':'application/json'
-        }),
-        body:JSON.stringify(sendJsonObject)
-    });
-    
-    return await response.json();
-}
-
-
-
-
-export const wishlistDeleteWishlistId=async(wishlistId)=>{
-	const response= await fetch(`${BACKEND_SERVER}/wishlist/${wishlistId}`,
-    {
-        method:"DELETE",
-        headers: authHeaders(),
-    });
-    
-	return await response.json();
-}
-
-
-export const wishlistDeleteUserId=async(userId)=>{
-	const response= await fetch(`${BACKEND_SERVER}/wishlists/${userId}`,
-    {
-        method:"DELETE",
-        headers: authHeaders(),
-    });
-    
-	return await response.json();
-}
