@@ -16,7 +16,6 @@ export const useAdminStudentlist=async(userId)=>{
 }
 //관리자 - 수강생 삭제
 export const useAdminDeleteStudent = async (userId, studentId) => {
-  console.log("조경진----");
   const response = await fetch(
     `${BACKEND_SERVER}/student/admin_deletestudent/${userId}?studentId=${studentId}`,
     {
@@ -35,7 +34,7 @@ export const useAdminDeleteStudent = async (userId, studentId) => {
 
 //관리자 - 강사 목록
 export const useAdminTutorlist=async(userId)=>{
-  const response= await fetch(`${BACKEND_SERVER}/tutor/admin_tutorlist/${userId}`,
+  const response= await fetch(`${BACKEND_SERVER}/tutor/admin_tutorplainlist/${userId}`,
     {
         method:"GET",
         headers: authHeaders(),   
@@ -58,6 +57,23 @@ export const useAlluserRegist = async (sendJsonObject) => {
   return responseJsonObject;
 };
 
+//관리자 - 강사 삭제
+export const useAdminDeleteTutor = async (userId, tutorId) => {
+    console.log("새끼");
+  const response = await fetch(
+    `${BACKEND_SERVER}/tutor/admin_deletetutor/${userId}?tutorId=${tutorId}`,
+    {
+      method: "DELETE",
+      headers: authHeaders(),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`삭제 실패: ${response.status}`);
+  }
+
+  return await response.json();
+};
 
 export const userWriteAction = async (sendJsonObject) => {
   const response = await fetch(`${BACKEND_SERVER}/user`, {

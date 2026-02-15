@@ -4,27 +4,26 @@ import { useAdminTutorlist } from "../../hooks/useUser";
 import "../../assets/css/course_tutor.css";
 
 function AdminPlainTutorlist() {
+
   const navigate = useNavigate();
 
   const {
     tutors,
     loading,
     error,
-
     selectedIds,
     handleCheck,
     handleAllCheck,
     isAllChecked,
     allCheckRef,
-
-    deleteStudents,
+    deleteTutors,
   } = useAdminTutorlist();
 
   const goToStudentCourses = (tutorId) => {
     navigate(`/tutor_courseslist/${tutorId}`);
   };
 
-  if (loading) return <div>로딩 중...</div>
+  if (loading) return <div>로딩 중...</div>;
   if (error) return <div>에러 발생</div>;
 
   return (
@@ -37,20 +36,20 @@ function AdminPlainTutorlist() {
         <table>
           <thead>
 
-            {/* 🔥 버튼 행 */}
+            {/* 버튼 행 */}
             <tr className="table-action-row">
               <th colSpan="4">
                 <button
                   className="btn-delete"
                   disabled={selectedIds.length === 0}
-                  onClick={deleteStudents}
+                  onClick={deleteTutors}
                 >
                   선택 삭제
                 </button>
               </th>
             </tr>
 
-            {/* 🔥 헤더 */}
+            {/* 헤더 */}
             <tr>
               <th>
                 <label className="custom-check">

@@ -135,9 +135,6 @@ export function useAdminStudentlist() {
 //관리자 - 강사 목록 화면
 export function useAdminTutorlist() {
 
-  /* =============================
-     상태
-  ============================== */
   const [tutors, setTutors] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -147,18 +144,22 @@ export function useAdminTutorlist() {
 
   const { loginStatus } = useContext(UserContext);
   const loginUser = loginStatus?.loginUser;
-  const userId = loginUser?.userId;
+  const adminId = loginUser?.userId;
 
-  /* =============================
-     🔥 학생 목록 조회 API
-  ============================== */
+  /* 🔥 강사 목록 조회 */
   const fetchTutors = async () => {
     try {
       setLoading(true);
-      const response = await userApi.useAdminTutorlist(userId);
+
+      const response = await userApi.useAdminTutorlist(adminId);
       const result = response.data;
-      setTutors(Array.isArray(result) ? result : result.data || []);
-      //setStudents(response.data);
+
+      const tutorList = Array.isArray(result)
+        ? result
+        : result?.data || [];
+
+      setTutors(tutorList);
+
     } catch (err) {
       console.error(err);
       setError(err);
@@ -167,14 +168,13 @@ export function useAdminTutorlist() {
     }
   };
 
-  /* 최초 로딩 */
   useEffect(() => {
-    fetchTutors();
-  }, []);
+    if (adminId) {
+      fetchTutors();
+    }
+  }, [adminId]);
 
-  /* =============================
-     개별 선택
-  ============================== */
+  /* 🔥 개별 체크 */
   const handleCheck = (tutorId) => {
     setSelectedIds((prev) =>
       prev.includes(tutorId)
@@ -183,27 +183,20 @@ export function useAdminTutorlist() {
     );
   };
 
-  /* =============================
-     전체 선택
-  ============================== */
+  /* 🔥 전체 체크 */
   const handleAllCheck = (e) => {
     if (e.target.checked) {
-      setSelectedIds(tutors.map((s) => s.tutorId));
+      setSelectedIds(tutors.map((t) => t.tutorId));
     } else {
       setSelectedIds([]);
     }
   };
 
-  /* =============================
-     전체 선택 여부
-  ============================== */
   const isAllChecked =
     tutors.length > 0 &&
     selectedIds.length === tutors.length;
 
-  /* =============================
-     indeterminate 처리
-  ============================== */
+  /* 🔥 indeterminate 처리 */
   useEffect(() => {
     if (allCheckRef.current) {
       allCheckRef.current.indeterminate =
@@ -212,53 +205,50 @@ export function useAdminTutorlist() {
     }
   }, [selectedIds, tutors.length]);
 
-  /* =============================
-     🔥 학생 삭제 API
-  ============================== */
-  const deleteStudents = async () => {
+  /* 🔥 선택 삭제 */
+  const deleteTutors = async () => {
+
     if (selectedIds.length === 0) return;
 
     try {
-      for (const tutorId of selectedIds) {
-        await userApi.useAdminDeleteStudent(userId, tutorId);
-      }
-tutor
-      // 화면에서 제거 (optimistic update)
-      setTutors((prev) =>
-        prev.filter((tutor) =>
-          !selectedIds.includes(tutor.tutorId)
+
+      await Promise.all(
+        selectedIds.map((tutorId) =>
+          userApi.useAdminDeleteTutor(adminId, tutorId)
         )
       );
 
-      setSelectedIds([]); // 선택 초기화
+      // 화면에서도 제거
+      setTutors((prev) =>
+        prev.filter((t) =>
+          !selectedIds.includes(t.tutorId)
+        )
+      );
+
+      setSelectedIds([]);
+
+      alert("삭제 완료");
+
     } catch (err) {
       console.error(err);
       alert("삭제 실패");
     }
   };
 
-  /* =============================
-     외부에서 새로고침 가능
-  ============================== */
-  const reload = () => {
-    fetchTutors();
-  };
-
   return {
     tutors,
     loading,
     error,
-
     selectedIds,
     handleCheck,
     handleAllCheck,
     isAllChecked,
     allCheckRef,
-
-    deleteStudents,
-    reload,
+    deleteTutors,
   };
 }
+
+
 
 //관리자 - 학생/강사/관리자 등록 화면
 export const useAlluserRegist = () => {
