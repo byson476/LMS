@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lms.course.CourseService;
 import com.lms.course.dto.AdminCourseRegistDto;
 import com.lms.course.dto.AdminCourselistDto;
+import com.lms.course.dto.StudentRegistCourselistDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
 import com.lms.user.controller.Response;
 import com.lms.user.exception.ExistedUserException;
@@ -60,6 +61,25 @@ public class CourseRestController {
 
 		return SecurityContextHolder.getContext();
 	}
+	
+	@Operation(summary = "학생 - 수강신청 / 강좌검색")
+	@SecurityRequirement(name = "BearerAuth")
+	@GetMapping("student_courselist/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+	public ResponseEntity<Response> findStudentCourseList(@PathVariable("userId") String userId)throws Exception {
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		List <StudentRegistCourselistDto> studentRegistCourselistDto = courseService.findStudentCourseList();
+		response.setData(studentRegistCourselistDto);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity;
+	}
 
 	@Operation(summary = "강사 - 개설 강좌 목록 보기")
 	@SecurityRequirement(name = "BearerAuth")
@@ -79,7 +99,6 @@ public class CourseRestController {
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
 		return responseEntity;
 	}
-
 	
 	@Operation(summary = "관리자 - 전체 강좌 목록 보기")
 	@SecurityRequirement(name = "BearerAuth")

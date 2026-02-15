@@ -25,7 +25,7 @@ public class CourseEnrollmentDto {
     private Date enrolledDate;
     private Long status;
     private Student student;
-    private List<CourseEnrollment> enrollments;
+    private Course course;
 
     public static CourseEnrollmentDto toDto(CourseEnrollment CourseEnrollmentEntity) {
         return CourseEnrollmentDto.builder()
@@ -33,7 +33,7 @@ public class CourseEnrollmentDto {
                 .enrolledDate(CourseEnrollmentEntity.getEnrolledDate())
                 .status(CourseEnrollmentEntity.getStatus())
                 .student(CourseEnrollmentEntity.getStudent())
-                .enrollments(CourseEnrollmentEntity.getCourse().getEnrollments())
+                .course(CourseEnrollmentEntity.getCourse())
                 .build();
     }
 }

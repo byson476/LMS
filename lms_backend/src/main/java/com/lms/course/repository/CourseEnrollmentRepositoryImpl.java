@@ -11,6 +11,7 @@ import com.lms.course.dto.StudentCourselistDto;
 import com.lms.course.dto.TutorStudentListDto;
 import com.lms.course.dto.AdminStudentCourseListDto;
 import com.lms.course.dto.CourseWithStudentCountDto;
+import com.lms.course.dto.StudentCourseenrollmentlisDto;
 import com.lms.course.entity.QCourse;
 import com.lms.course.entity.QCourseEnrollment;
 import com.lms.user.entity.QTutor;

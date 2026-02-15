@@ -79,7 +79,7 @@ useEffect(() => {
                             <li><Link to={`/admin_course_list`}>강의 목록</Link></li>
                             <li><Link to={`/all_user_regist`}>수강생/강사/관리자 등록</Link></li>
                             <li><Link to={`/admin_student_list`}>수강생 목록</Link></li>
-                            <li><Link to={`/admin_course_list`}>강사 목록</Link></li>
+                            <li><Link to={`/admin_tutor_list`}>강사 목록</Link></li>
                             <li>
                                 <Link to={''} onClick={userLogoutAction}>로그아웃</Link>
                             </li>

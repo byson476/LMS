@@ -32,6 +32,17 @@ export const useAdminDeleteStudent = async (userId, studentId) => {
   return await response.json();
 };
 
+
+//관리자 - 강사 목록
+export const useAdminTutorlist=async(userId)=>{
+  const response= await fetch(`${BACKEND_SERVER}/tutor/admin_tutorlist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+  return await response.json();
+}
+
 //관리자 - 학생/강사/관리자 등록
 export const useAlluserRegist = async (sendJsonObject) => {
   const response = await fetch(`${BACKEND_SERVER}/user/admin_user_regist`, {

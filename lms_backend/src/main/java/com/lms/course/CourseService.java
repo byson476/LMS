@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.lms.course.dto.AdminCourseRegistDto;
 import com.lms.course.dto.AdminCourselistDto;
+import com.lms.course.dto.StudentRegistCourselistDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
+import com.lms.course.entity.CourseEnrollment;
 
 import jakarta.transaction.Transactional;
 
@@ -21,4 +23,7 @@ public interface CourseService  {
 
     //관리자/강사 - 강좌 등록
     public void registCourse(AdminCourseRegistDto adminCourseRegistDto) throws Exception;
+
+    //학생 - 수강신청 / 강좌검색
+    public List <StudentRegistCourselistDto>  findStudentCourseList() throws Exception;
 }

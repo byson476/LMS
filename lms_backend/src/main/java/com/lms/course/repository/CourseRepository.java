@@ -10,6 +10,7 @@ import com.lms.course.dto.AdminCourselistDto;
 import com.lms.course.dto.CourseWithStudentCountDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
 import com.lms.course.dto.StudentListForCourseTutorDto;
+import com.lms.course.dto.StudentRegistCourselistDto;
 import com.lms.course.entity.Course;
 import com.lms.user.entity.Tutor;
 
@@ -46,5 +47,24 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     """)
     List<AdminCourselistDto> findAdminCourseList();
 
+    @Query(value = """
+        SELECT 
+            c.courseid AS courseId,
+            c.title AS title,
+            c.description AS description,
+            ui.name AS tutorName,
+            CAST(COUNT(ce.studentid) AS NUMBER(19)) AS studentCount
+        FROM course c
+        JOIN userinfo ui 
+            ON c.tutorid = ui.userid
+        LEFT JOIN course_enrollment ce 
+            ON c.courseid = ce.courseid
+        GROUP BY 
+            c.courseid,
+            c.title,
+            c.description,
+            ui.name
+        """, nativeQuery = true)
+    List<StudentRegistCourselistDto> findStudentRegistCourselist();
 
 }

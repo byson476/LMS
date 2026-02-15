@@ -14,9 +14,14 @@ import com.lms.course.dto.CourseDto;
 import com.lms.course.dto.TutorCoursesWithStudentCountDto;
 import com.lms.course.dto.TutorStudentListDto;
 import com.lms.course.dto.StudentListForCourseTutorDto;
+import com.lms.course.dto.StudentRegistCourselistDto;
 import com.lms.course.entity.Course;
+import com.lms.course.entity.CourseEnrollment;
+import com.lms.course.repository.CourseEnrollmentRepository;
 import com.lms.course.repository.CourseRepository;
+import com.lms.user.entity.Student;
 import com.lms.user.entity.Tutor;
+import com.lms.user.repository.StudentRepository;
 import com.lms.user.repository.TutorRepository;
 
 import lombok.Builder;
@@ -30,7 +35,11 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
+    private CourseEnrollmentRepository courseEnrollmentRepository;
+    @Autowired
     private TutorRepository tutorRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     @Transactional
@@ -60,12 +69,11 @@ public class CourseServiceImpl implements CourseService{
     @Transactional
     public void registCourse(AdminCourseRegistDto adminCourseRegistDto) throws Exception {
         Tutor tutorEntity = tutorRepository.findById(adminCourseRegistDto.getTutorId()).orElseThrow(() -> new RuntimeException("튜터 없음"));
-System.out.println("@@@@@@@@@@@@@@@tutorEntity ::" + tutorEntity);
         String startDateStr = adminCourseRegistDto.getStartDate(); // 예: "2026-02-12"
 
-// 원하는 형식 지정 (YYYY-MM-DD)
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-Date utilDate = sdf.parse(startDateStr); // java.util.Date로 변환
+        // 원하는 형식 지정 (YYYY-MM-DD)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date utilDate = sdf.parse(startDateStr); // java.util.Date로 변환
 
         Course courseEntity = Course.builder()
                     .courseId(null)
@@ -78,5 +86,12 @@ Date utilDate = sdf.parse(startDateStr); // java.util.Date로 변환
 
         courseRepository.save(courseEntity);
     }
-    
+
+    //학생 - 수강신청 / 강좌검색
+    @Override
+    @Transactional
+    public List <StudentRegistCourselistDto>  findStudentCourseList() throws Exception {
+        List <StudentRegistCourselistDto> studentRegistCourselistDto = courseRepository.findStudentRegistCourselist();
+        return studentRegistCourselistDto;
+    }
 }

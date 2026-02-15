@@ -8,7 +8,8 @@ const StudentCourseRegist = () => {
     courses,
     loading,
     error,
-    selectedIds,
+    enrolledIds,     // 🔥 이미 신청된 강의
+    selectedIds,     // 🔥 새로 선택한 강의
     handleCheckboxChange,
     handleApplyCourses,
   } = useStudentCourseRegist();
@@ -56,34 +57,60 @@ const StudentCourseRegist = () => {
           <tbody>
             {courses.length === 0 ? (
               <tr>
-                <td colSpan="5" style={{ padding: "40px 0", textAlign: "center" }}>
+                <td
+                  colSpan="5"
+                  style={{ padding: "40px 0", textAlign: "center" }}
+                >
                   등록된 강의가 없습니다.
                 </td>
               </tr>
             ) : (
-              courses.map((course) => (
-                <tr key={course.courseId}>
-                  <td className="col-check">
-                    <input
-                      type="checkbox"
-                      checked={selectedIds.includes(course.courseId)}
-                      onChange={() =>
-                        handleCheckboxChange(course.courseId)
-                      }
-                    />
-                  </td>
+              courses.map((course) => {
 
-                  <td className="col-title">
-                    <span className="course-title">
-                      {course.title}
-                    </span>
-                  </td>
+                const isEnrolled = enrolledIds.includes(course.courseId);
+                const isSelected = selectedIds.includes(course.courseId);
 
-                  <td>{course.description}</td>
-                  <td>{course.tutorName}</td>
-                  <td>{course.totalStudents}명</td>
-                </tr>
-              ))
+                return (
+                  <tr key={course.courseId}>
+                    <td className="col-check">
+                      <input
+                        type="checkbox"
+                        checked={isEnrolled || isSelected}
+                        disabled={isEnrolled}   // 🔥 이미 신청한 강의는 비활성화
+                        onChange={() =>
+                          handleCheckboxChange(course.courseId)
+                        }
+                      />
+                    </td>
+
+                    <td className="col-title">
+                      <span
+                        className="course-title"
+                        style={{
+                          color: isEnrolled ? "#999" : "inherit",
+                        }}
+                      >
+                        {course.title}
+                        {isEnrolled && (
+                          <span
+                            style={{
+                              marginLeft: "8px",
+                              fontSize: "12px",
+                              color: "#ff6b6b",
+                            }}
+                          >
+                            (신청완료)
+                          </span>
+                        )}
+                      </span>
+                    </td>
+
+                    <td>{course.description}</td>
+                    <td>{course.tutorName}</td>
+                    <td>{course.studentCount}명</td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

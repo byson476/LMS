@@ -13,6 +13,43 @@ export const useStudentCourselist=async(userId)=>{
 	return await response.json();
 }
 
+
+//학생 - 수강신청 >> 강좌검색
+export const findStudentCourseList=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/course/student_courselist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
+
+//학생 - 수강신청 >> 강좌검색 / 수강중인 강좌 목록 가져오기
+export const findStudentCourseEnrollmentList=async(userId)=>{
+	const response= await fetch(`${BACKEND_SERVER}/coursee/student_courseenrollmentlist/${userId}`,
+    {
+        method:"GET",
+        headers: authHeaders(),   
+    });
+	return await response.json();
+}
+
+//학생 - 수강신청 >> 강좌 등록
+export const useAStudentCourseRegist = async (sendJsonObject)=>{
+  const response1 = await fetch(`${BACKEND_SERVER}/coursee/student_registcourse`, {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
+    },
+        body: JSON.stringify(sendJsonObject),
+  });
+  const responseJsonObject = await response1.json();
+  console.log(">>> userApi.userWriteAction()-->response:", responseJsonObject);
+  return responseJsonObject;
+}
+
+
 //강사 - 개설 강의 목록
 export const useTutorCourselist=async(userId)=>{
 	const response= await fetch(`${BACKEND_SERVER}/course/tutor_courselist/${userId}`,
@@ -65,10 +102,10 @@ export const useAdminDeleteCourse = async (userId, courseId) => {
 export const useAdminRegistCourse = async (sendJsonObject)=>{
   const response1 = await fetch(`${BACKEND_SERVER}/course/admin_registcourse`, {
     method: "POST",
-headers: {
-  "Content-Type": "application/json",
-  ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
-},
+    headers: {
+    "Content-Type": "application/json",
+    ...authHeaders(), // authHeaders()가 { Authorization: ... }를 반환
+    },
         body: JSON.stringify(sendJsonObject),
   });
   const responseJsonObject = await response1.json();

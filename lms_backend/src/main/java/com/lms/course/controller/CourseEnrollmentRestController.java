@@ -14,15 +14,21 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.course.CourseEnrollmentService;
 import com.lms.course.CourseService;
+import com.lms.course.dto.AdminCourseRegistDto;
 import com.lms.course.dto.AdminStudentCourseListDto;
+import com.lms.course.dto.StudentCourseenrollmentlisDto;
 import com.lms.course.dto.StudentCourselistDto;
+import com.lms.course.dto.StudentRegistCourseEnrollmentDto;
 import com.lms.course.dto.TutorStudentListDto;
+import com.lms.course.entity.CourseEnrollment;
 import com.lms.user.controller.Response;
 import com.lms.user.exception.ExistedUserException;
 
@@ -90,7 +96,6 @@ public class CourseEnrollmentRestController {
 		response.setMessage(ResponseMessage.COURSE_SUCCESS);
 		
 		List <TutorStudentListDto> tutorStudentList = courseEnrollmentService.findStudentsByCourse(Long.valueOf(courseId));
-			System.out.println("##############################tutorStudentList:"+tutorStudentList);
 		response.setData(tutorStudentList);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
@@ -104,21 +109,65 @@ public class CourseEnrollmentRestController {
 	@GetMapping("admin_courselist/{userId}")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<Response> findAdminStudentCourse(@PathVariable("userId") String userId, @RequestParam("studentId") String studentId)throws Exception {
-		System.out.println("1아..짱나"+userId);
 		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
 			throw new AccessDeniedException("접근 권한 없음");
 		}
-		System.out.println("2아..짱나" + studentId);
 		Response response = new Response();
 		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
 		response.setMessage(ResponseMessage.COURSE_SUCCESS);
-		
 		List <AdminStudentCourseListDto> courseList = courseEnrollmentService.findAdminStudentCourse(studentId);
-			System.out.println("##############################tutorStudentList:"+courseList);
 		response.setData(courseList);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
 		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
 		return responseEntity;
 	}
+
+
+	@Operation(summary = "학생 - 수강신청 / 강좌 등록 >>수강생의 수강 내역")
+	@SecurityRequirement(name = "BearerAuth")
+	@GetMapping("student_courseenrollmentlist/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+	public ResponseEntity<Response> findStudentCourseenrollmentlis(@PathVariable("userId") String userId)throws Exception {
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		List <StudentCourseenrollmentlisDto> courseIdList = courseEnrollmentService.findStudentCourseenrollmentlist(userId);
+		response.setData(courseIdList);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity;
+	}
+
+
+	@Operation(summary = "학생 - 수강신청 / 강의 등록")
+	@PostMapping(value="/student_registcourse")
+	@PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+	public ResponseEntity<Response> registCourseEnrollment(@RequestBody StudentRegistCourseEnrollmentDto studentRegistCourseEnrollmentDto)throws Exception {
+		if(studentRegistCourseEnrollmentDto==null)
+			throw new AccessDeniedException("접근 권한 없음");
+
+		String userId = studentRegistCourseEnrollmentDto.getUserId();
+		if(!userId.equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+			throw new AccessDeniedException("접근 권한 없음");
+		}
+
+		Response response = new Response();
+		response.setStatus(ResponseStatusCode.COURSE_SUCCESS);
+		response.setMessage(ResponseMessage.COURSE_SUCCESS);
+		courseEnrollmentService.registCourseEnrollment(studentRegistCourseEnrollmentDto);
+		response.setData(null);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
+		ResponseEntity<Response> responseEntity = new ResponseEntity<Response>(response, httpHeaders, HttpStatus.OK);
+		return responseEntity; 
+	}
 }
+
+
+
+

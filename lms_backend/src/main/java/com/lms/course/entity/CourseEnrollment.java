@@ -52,7 +52,7 @@ public class CourseEnrollment {
                 .enrolledDate(courseEnrollmentDto.getEnrolledDate())
                 .status(courseEnrollmentDto.getStatus())
                 .student(courseEnrollmentDto.getStudent())
-                .course(courseEnrollmentDto.getEnrollments().get(0).getCourse())
+                .course(courseEnrollmentDto.getCourse())
                 .build();
     }
 }

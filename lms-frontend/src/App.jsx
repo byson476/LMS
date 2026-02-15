@@ -30,6 +30,7 @@ import TutorCourseRegistPage from "./page/course/TutorCourseRegist.jsx";
 import AllUserRegisterPage from "./page/user/AllUserRegisterPage.jsx";
 import AdminStudentlist from "./page/user/AdminStudentlist.jsx";
 import AdminStudentCourseList from "./page/course/AdminStudentCourseList.jsx"
+import AdminPlainTutorlist from "./page/user/AdminPlainTutorlist.jsx";
 
 import { userLoginCheck } from "./util/loginCheck";
 
@@ -142,6 +143,12 @@ function App() {
               path="/student_courseslist/:studentId"
               element={loginStatus.isLogin ? <AdminStudentCourseList /> : <LoginPage />}
             />
+
+            {/*관리자 - 강사 목록*/}
+            <Route
+              path="admin_tutor_list"
+              element={loginStatus.isLogin ? <AdminPlainTutorlist /> : <LoginPage />}
+            />          
 
             {/*  카카오 */}
             <Route path="/member/kakao" element={<KakaoRedirectPage />} />

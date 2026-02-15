@@ -50,8 +50,13 @@ export const useStudentCourselist = (initialCourselist = []) => {
 //학생 - 수강 신청
 export const useStudentCourseRegist = () => {
 
+  const { loginStatus } = useContext(UserContext);
+  const loginUser = loginStatus?.loginUser;
+  const userId = loginUser?.userId;
+
   const [courses, setCourses] = useState([]);
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [enrolledIds, setEnrolledIds] = useState([]); // 🔥 이미 신청된 강의
+  const [selectedIds, setSelectedIds] = useState([]); // 🔥 새로 선택한 강의
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -59,16 +64,30 @@ export const useStudentCourseRegist = () => {
 
   // 🔥 강의 목록 조회
   useEffect(() => {
-    fetchCourses();
-  }, []);
+    if (userId) {
+      fetchCourses();
+    }
+  }, [userId]);
 
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const res = await courseApi.getCourseList();
 
-      // 배열 안전 처리
+      // 1️⃣ 전체 강의 목록
+      const res = await courseApi.findStudentCourseList(userId);
+  console.log("빠라바람 ",res);
       setCourses(Array.isArray(res.data) ? res.data : []);
+
+      // 2️⃣ 이미 신청한 강의 목록
+      const resChk = await courseApi.findStudentCourseEnrollmentList(userId);
+
+      const enrolled = Array.isArray(resChk.data)
+        ? resChk.data.map(item => item.courseId)
+        : [];
+
+      setEnrolledIds(enrolled);
+      setSelectedIds([]); // 새 선택 초기화
+
     } catch (e) {
       console.error("강의 목록 조회 실패:", e);
       setError(true);
@@ -77,8 +96,11 @@ export const useStudentCourseRegist = () => {
     }
   };
 
-  // 🔥 개별 체크
+  // 🔥 개별 체크 (이미 신청된 강의는 제외)
   const handleCheckboxChange = (id) => {
+
+    if (enrolledIds.includes(id)) return;
+
     setSelectedIds((prev) =>
       prev.includes(id)
         ? prev.filter((item) => item !== id)
@@ -86,33 +108,44 @@ export const useStudentCourseRegist = () => {
     );
   };
 
-  // 🔥 전체 선택
+  // 🔥 전체 선택 (이미 신청된 강의 제외)
   const handleAllCheck = () => {
-    if (selectedIds.length === courses.length) {
+
+    const availableCourses = courses
+      .map(c => c.courseId)
+      .filter(id => !enrolledIds.includes(id));
+
+    if (selectedIds.length === availableCourses.length) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(courses.map((c) => c.courseId));
+      setSelectedIds(availableCourses);
     }
   };
 
   const isAllChecked =
     courses.length > 0 &&
-    selectedIds.length === courses.length;
+    selectedIds.length ===
+      courses.filter(c => !enrolledIds.includes(c.courseId)).length;
 
   // 🔥 강의 신청
   const handleApplyCourses = async () => {
+
     if (selectedIds.length === 0) return;
 
     try {
       await Promise.all(
-        selectedIds.map((id) =>
-          courseApi.applyCourse(id)
+        selectedIds.map((courseId) =>
+          courseApi.useAStudentCourseRegist({
+            userId: userId,
+            courseId: courseId
+          })
         )
       );
 
       alert("강의 신청이 완료되었습니다.");
-      setSelectedIds([]);
-      fetchCourses(); // 신청 후 새로고침
+
+      fetchCourses(); // 🔥 재조회 (신청 후 자동 반영)
+
     } catch (e) {
       console.error("강의 신청 실패:", e);
       alert("강의 신청 중 오류가 발생했습니다.");
@@ -123,6 +156,7 @@ export const useStudentCourseRegist = () => {
     courses,
     loading,
     error,
+    enrolledIds,
     selectedIds,
     handleCheckboxChange,
     handleAllCheck,
