@@ -87,11 +87,48 @@ export const UserViewPage = () => {
           <span className="value">{user.email}</span>
         </div>
 
-        <div className="user-view-actions">
+        {/* 🔥 버튼 영역 */}
+        <div
+          className="user-view-actions"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "12px",
+            marginTop: "30px"
+          }}
+        >
           <Link to={`/user_edit/${user.userId}`}>
-            <button className="btn">수정</button>
+            <button
+              style={{
+                width: "110px",
+                height: "40px",
+                backgroundColor: "#5f63e6",
+                color: "#fff",
+                border: "none",
+                borderRadius: "6px",
+                fontSize: "14px",
+                fontWeight: "600",
+                cursor: "pointer"
+              }}
+            >
+              수정
+            </button>
           </Link>
-          <button className="btn danger" onClick={userDeleteAction}>
+
+          <button
+            onClick={userDeleteAction}
+            style={{
+              width: "110px",
+              height: "40px",
+              backgroundColor: "#e74c3c",
+              color: "#fff",
+              border: "none",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: "600",
+              cursor: "pointer"
+            }}
+          >
             탈퇴
           </button>
         </div>
