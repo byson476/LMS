@@ -1,6 +1,11 @@
-import React from "react";
-const UserMainPage = () => {
-  return <div>메인 페이지 테스트</div>;
+export const UserMainPage = (props) => {
+  return (
+    <img src="/image/learning-management-system.jpg"
+      alt="메인이미지"
+      width="540"
+      height="350px"
+      style={{ margin: "10px" }}
+    />
+  );
 };
 
-export default UserMainPage;

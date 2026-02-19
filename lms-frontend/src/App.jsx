@@ -12,7 +12,7 @@ import Navigation from "./layout/Navigation";
 
 import UserProvider from "./context/UserProvider";
 
-import UserMainPage from "./page/user/UserMainPage.jsx";
+import {UserMainPage} from "./page/user/UserMainPage";
 import { UserRegistPage } from "./page/user/UserRegistPage";
 import { LoginPage } from "./page/user/LoginPage";
 import { UserViewPage } from "./page/user/UserViewPage";
