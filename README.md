@@ -20,7 +20,7 @@
 
 ## 프로젝트 소개
 **LMS**는 Learning Management System의 핵심 기능(학생의 강의 수강, 강사의 강의 등록, 관리자의 강의 및 사용자 관리)을 구현한 개인 프로젝트입니다.  
-프론트는 React 기반으로 UX를 구성하고, 백엔드는 Spring Boot REST API로 도메인별 책임을 분리했습니다.
+Mermaid로 설계하고, 프론트는 React 기반으로 UX를 구성했으며, 백엔드는 Spring Boot REST API로 도메인별 책임을 분리했습니다.
 
 ---
 
