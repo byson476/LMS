@@ -61,12 +61,14 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 4. (UML) 시퀀스 다이어그램 - Sequence Diagram 
 
-<img width="200" alt="씨퀀스 다이어그램" src="https://github.com/user-attachments/assets/9ecfa7b0-9ba9-4340-a79a-923528d2bc89" />
+<img width="1214" height="627" alt="LMS-씨퀀스" src="https://github.com/user-attachments/assets/a199dfc5-ff25-4f93-ab0d-ce0f6e78a2e7" />
+
 
 
 5. (UML) 클래스 다이어그램 - Class Diagram 
 
-<img width="250"  alt="4번" src="https://github.com/user-attachments/assets/b7431192-a567-4e1b-9cf5-b2d37f461bd0" /><img width="250"  alt="5번" src="https://github.com/user-attachments/assets/ad1ff722-eb5f-4853-92e0-8c65adf3dd78" />
+<img width="1214" height="627" alt="LMS-클래스" src="https://github.com/user-attachments/assets/5af9f6d7-4c0b-4e1f-8307-cb61e7ecd035" />
+
 
 6. ERD Diagram 
 
