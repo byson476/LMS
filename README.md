@@ -56,7 +56,8 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 3. (UML) 유스케이스 다이어그램 - Usecase Diagram 
 
-<img width="200" alt="유스케이스다이어그램" src="https://github.com/user-attachments/assets/94ae3908-b891-4cf5-acc1-3aa13671ea01" />
+<img width="1214" height="627" alt="LMS-유즈케이스" src="https://github.com/user-attachments/assets/77a7d37b-dcc9-4950-af04-6aaeed50c684" />
+
 
 4. (UML) 시퀀스 다이어그램 - Sequence Diagram 
 
