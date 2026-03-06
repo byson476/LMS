@@ -74,11 +74,11 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 ### 데이터베이스 (ERD Diagram) 
 1. logical
-<img width="1214" height="627" alt="LMS-ERD노지컬" src="https://github.com/user-attachments/assets/8b4e798d-c1c7-4ab2-9d50-29c079cd40b4" />
+<img width="1214" alt="LMS-ERD노지컬" src="https://github.com/user-attachments/assets/8b4e798d-c1c7-4ab2-9d50-29c079cd40b4" />
 
 
 2. physical.jpg
-<img width="1214" height="627" alt="LMS-erd피지컬" src="https://github.com/user-attachments/assets/472b01f2-f030-4dd5-8448-115a3f72e299" />
+<img width="1214" alt="LMS-erd피지컬" src="https://github.com/user-attachments/assets/472b01f2-f030-4dd5-8448-115a3f72e299" />
 
 
 
