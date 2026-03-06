@@ -14,7 +14,7 @@
 - [실행 방법](#실행-방법)
 - [폴더 구조](#폴더-구조)
 - [Advanced CI CD Pipeline](#advanced-ci-cd-pipeline)
-- [LMS 시연]
+- [LMS 시연](#lms-시연)
 
 ---
 
