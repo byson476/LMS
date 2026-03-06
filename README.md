@@ -258,7 +258,10 @@ team_project_Limitree/
 이루어지도록 구성하였습니다.
 
 ## LMS 시연
-https://github.com/user-attachments/assets/a095d075-e0a3-43f2-9e69-42faf59850e7
+
+https://github.com/user-attachments/assets/a462751e-4aea-402b-b005-28236a90b729
+
+
 
 
 
