@@ -27,12 +27,17 @@
 ## 프로젝트 설계
 Learning Management System (개인 프로젝트)
 1. 요구사항 명세서 
+#### [LMS 사용자 관리 (User Management)]
+
+| ID | 요구사항명 | 상세 설명 | 관련 엔티티 |
+|:---:|:---|:---|:---:|
+USR-01 | 사용자 통합 관리 | 사용자 ID, 비밀번호, 성명, 이메일 등 기본 계정 정보 관리 | User
+USR-02 | 권한별 서브 타입 관리| 계정 유형에 따라 학생(Student), 강사(Tutor), 관리자(Admin) 정보 분리 관리	| Student, Tutor, Admin
+USR-03 | 접근 권한 제어| Spring Security와 연동하여 Role 기반(STUDENT, TUTOR, ADMIN) 페이지 접근 제어| UserRole
 
 [LMS 사용자 관리 (User Management)]
 ID	요구사항명	상세 설명	관련 엔티티
-USR-01	사용자 통합 관리	사용자 ID, 비밀번호, 성명, 이메일 등 기본 계정 정보 관리	User
-USR-02	권한별 서브 타입 관리	계정 유형에 따라 학생(Student), 강사(Tutor), 관리자(Admin) 정보 분리 관리	Student, Tutor, Admin
-USR-03	접근 권한 제어	Spring Security와 연동하여 Role 기반(STUDENT, TUTOR, ADMIN) 페이지 접근 제어	UserRole
+
 [인사 관리 (Human Resources)]
 ID	요구사항명	상세 설명	관련 엔티티
 HR-01	강사 채용/이력 관리	강사 전공(Major), 고용일(HiredDate) 등 상세 인사 데이터 기록	Tutor
