@@ -51,8 +51,10 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 2. 화면 정의서 (Wireframe / 화면설계서)
 
+<img width="100" alt="관리자-강의관리" src="https://github.com/user-attachments/assets/518b2623-6728-4097-a5a5-4c82c681e3f4" />
+<img width="100" alt="관리자-사용자관리" src="https://github.com/user-attachments/assets/ff9c7ce0-025e-42b8-8e8b-b6a31e84291e" />
+<img width="100" alt="관리자-수강생관리" src="https://github.com/user-attachments/assets/857508c1-4abf-4f29-a697-1f1b60b558f9" />
 
-<img  height="100" alt="6번" src="https://github.com/user-attachments/assets/3b461c12-ed61-4291-a247-cd52ebbe2c13" />             <img height="100" alt="7번" src="https://github.com/user-attachments/assets/3a064bc8-1611-4384-a825-ddcf1b7a9a5f" />             <img height="100" alt="8번" src="https://github.com/user-attachments/assets/fe7bbaf3-6efe-4c63-85c1-9cb332dd2c95" />
 
 3. (UML) 유스케이스 다이어그램 - Usecase Diagram 
 
