@@ -204,8 +204,10 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 ## API 문서
 - Swagger UI(OpenAPI): `springdoc-openapi-starter-webmvc-ui` 사용  
   > 실행 후 `/swagger-ui` 혹은 프로젝트 설정에 맞는 경로에서 확인
+<img  width="500"alt="api1" src="https://github.com/user-attachments/assets/81c0612a-3e9f-45b5-953f-59bfdef8d71e" />
+<img width="500" alt="api2" src="https://github.com/user-attachments/assets/d38ac2eb-16f4-4694-84c0-9b5bef9a2d5c" />
 
-<img width="500" height="1681" alt="스웨거" src="https://github.com/user-attachments/assets/1503233a-127a-4b71-a4bb-2dbbe934a212" />
+
 
 ---
 
