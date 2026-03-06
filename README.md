@@ -28,15 +28,22 @@
 Learning Management System (개인 프로젝트)
 1. 요구사항 명세서 
 
-| 학생 (Student) | 강사 (Tutor) | 관리자 (Admin) |
-|----------------|--------------|----------------|
-| ✓ 회원가입 / 로그인 | ✓ 강사 회원 등록 | ✓ 회원 관리 (학생/강사/관리자) |
-| ✓ 강좌 검색 및 조회 | ✓ 담당 강좌 관리 | ✓ 강좌 승인 및 삭제 |
-| ✓ 수강 신청 / 취소 | ✓ 강의 자료 등록 | ✓ 강사 권한 관리 |
-| ✓ 강의 수강 | ✓ 수강생 관리 | ✓ 공지사항 / 이벤트 관리 |
-| ✓ 진도율 확인 | ✓ 학습 진도 확인 | ✓ 시스템 통계 및 로그 확인 |
-| ✓ 수료증 조회 |  |  |
-
+[LMS 사용자 관리 (User Management)]
+ID	요구사항명	상세 설명	관련 엔티티
+USR-01	사용자 통합 관리	사용자 ID, 비밀번호, 성명, 이메일 등 기본 계정 정보 관리	User
+USR-02	권한별 서브 타입 관리	계정 유형에 따라 학생(Student), 강사(Tutor), 관리자(Admin) 정보 분리 관리	Student, Tutor, Admin
+USR-03	접근 권한 제어	Spring Security와 연동하여 Role 기반(STUDENT, TUTOR, ADMIN) 페이지 접근 제어	UserRole
+[인사 관리 (Human Resources)]
+ID	요구사항명	상세 설명	관련 엔티티
+HR-01	강사 채용/이력 관리	강사 전공(Major), 고용일(HiredDate) 등 상세 인사 데이터 기록	Tutor
+HR-02	학생 학적 관리	학생 학년(Grade), 가입일 등 학적 상태 정보 관리	Student
+HR-03	급여/인사 고도화	부서, 직급, 급여(Salary) 데이터를 포함한 사원 정보 관리 (추후 확장)	User
+[강좌 및 수강 관리 (Course & Enrollment)]
+ID	요구사항명	상세 설명	관련 엔티티
+CRS-01	강좌 마스터 관리	강좌명, 설명, 최대 수강 인원, 시작일 등 강좌 기본 정보 관리	Course
+CRS-02	강사 매핑	각 강좌에 담당 강사(Tutor)를 배정하고 관리	Course, Tutor
+ENR-01	수강 신청 프로세스	학생이 원하는 강좌를 선택하여 수강 신청 및 목록 유지	CourseEnrollment
+ENR-02	수강 이력 기록	학생별, 강좌별 수강 신청 일자 및 상태 관리	CourseEnrollment
 
 
 2. 화면 정의서 (Wireframe / 화면설계서)
