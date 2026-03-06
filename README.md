@@ -259,7 +259,11 @@ team_project_Limitree/
 
 ## LMS 시연
 
-https://github.com/user-attachments/assets/a462751e-4aea-402b-b005-28236a90b729
+
+https://github.com/user-attachments/assets/7c63a51a-9841-4544-9021-a62714a5fc37
+
+
+
 
 
 
