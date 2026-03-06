@@ -67,14 +67,21 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 5. (UML) 클래스 다이어그램 - Class Diagram 
 
-<img width="1214" height="627" alt="LMS-클래스" src="https://github.com/user-attachments/assets/5af9f6d7-4c0b-4e1f-8307-cb61e7ecd035" />
+<img width="900" height="627" alt="LMS-클래스" src="https://github.com/user-attachments/assets/5af9f6d7-4c0b-4e1f-8307-cb61e7ecd035" />
 
 
 6. ERD Diagram 
 
 ### 데이터베이스 (ERD Diagram) 
+1. logical
+<img width="1214" height="627" alt="LMS-ERD노지컬" src="https://github.com/user-attachments/assets/8b4e798d-c1c7-4ab2-9d50-29c079cd40b4" />
 
-<img width="250" alt="lms-erd" src="https://github.com/user-attachments/assets/d2e9a1bd-5625-410a-8852-ac005b487dad" />
+
+2. physical.jpg
+<img width="1214" height="627" alt="LMS-erd피지컬" src="https://github.com/user-attachments/assets/472b01f2-f030-4dd5-8448-115a3f72e299" />
+
+
+
 
 
 
