@@ -56,18 +56,18 @@ ENR-02|수강 이력 기록|학생별, 강좌별 수강 신청 일자 및 상태
 
 3. (UML) 유스케이스 다이어그램 - Usecase Diagram 
 
-<img width="1214" height="627" alt="LMS-유즈케이스" src="https://github.com/user-attachments/assets/603121e0-6150-4785-a6f8-10368ecfd7da" />
+<img width="1214" alt="LMS-유즈케이스" src="https://github.com/user-attachments/assets/603121e0-6150-4785-a6f8-10368ecfd7da" />
 
 
 4. (UML) 시퀀스 다이어그램 - Sequence Diagram 
 
-<img width="1214" height="627" alt="LMS-씨퀀스" src="https://github.com/user-attachments/assets/a199dfc5-ff25-4f93-ab0d-ce0f6e78a2e7" />
+<img width="1214" alt="LMS-씨퀀스" src="https://github.com/user-attachments/assets/a199dfc5-ff25-4f93-ab0d-ce0f6e78a2e7" />
 
 
 
 5. (UML) 클래스 다이어그램 - Class Diagram 
 
-<img width="900" height="627" alt="LMS-클래스" src="https://github.com/user-attachments/assets/5af9f6d7-4c0b-4e1f-8307-cb61e7ecd035" />
+<img width="1214" alt="LMS-클래스" src="https://github.com/user-attachments/assets/5af9f6d7-4c0b-4e1f-8307-cb61e7ecd035" />
 
 
 6. ERD Diagram 
